@@ -2,5 +2,35 @@
 {% from "macros/buttons.html" import button, submit_button %}
 {% block contentsubheading %}Discussion view{% endblock %}
 {% block discussioncontent %}
-    <p class="yellowbg">Under construction</p>
+
+<form action="/discussion/discussions/view" method="post">
+    <input type="hidden" name="redirect_to" value="{{ redirect_to }}" />
+    <dl>
+        <dt> {{ title }}</dt>
+        
+        <dd>
+            <textarea name="content" rows="3" cols="100"> Esto sería el contenido </textarea>
+        </dd>
+
+        <p class="alignright">{{ button('bluebg', '/discussion/discussions/answer?discussiontitle=' + title + '&redirect_to=/discussion/discussions/view?discussiontitle=' + title, 'Create new answer') }}</p>
+
+        <dd>
+            <textarea name="answer" rows="3" cols="100"> Esto sería la respuesta </textarea>
+        </dd>
+
+        <p class="alignright">{{ button('bluebg', '/discussion/discussions/comment?discussiontitle=' + title + '&redirect_to=/discussion/discussions/view?discussiontitle=' + title, 'Create new comment') }}</p>
+
+        <dd>
+            <textarea name="comment" rows="3" cols="100"> Esto sería el comentario </textarea>
+        </dd>
+
+        
+    </dl>
+    <p class="alignright">{{ button('redbg', redirect_to, 'Back') }}</p>
+</form>
+
+   
 {% endblock %}
+
+
+

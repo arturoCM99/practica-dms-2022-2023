@@ -1,0 +1,21 @@
+{% extends "discussion.html" %}
+{% from "macros/buttons.html" import button, submit_button %}
+{% block contentsubheading %}Create new answer{% endblock %}
+{% block discussioncontent %}
+    <form action="/discussion/discussions/answer" method="post">
+        <input type="hidden" name="redirect_to" value="{{ redirect_to }}" />
+        <dl>
+            <dt>{{ title }}</dt>
+            <dd>
+                <textarea name="content" rows="3" cols="100"> Esto sería el contenido </textarea>
+            </dd>
+
+            <dt>Answer</dt>
+            <dd>
+                <textarea name="content" rows="20" cols="100"> Write the answer... </textarea>
+            </dd>
+            
+        </dl>
+        <p class="alignright">{{ submit_button('bluebg', 'Save changes') }}{{ button('redbg', redirect_to, 'Cancel') }}</p>
+    </form>
+{% endblock %}
