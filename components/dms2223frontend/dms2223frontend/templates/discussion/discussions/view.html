@@ -8,21 +8,15 @@
     <dl>
         <dt> {{ title }}</dt>
         
-        <dd>
-            <textarea name="content" rows="3" cols="100"> Esto sería el contenido </textarea>
-        </dd>
+        <input type="text" name="content" value="{{ content }}"/>
 
         <p class="alignright">{{ button('bluebg', '/discussion/discussions/answer?discussiontitle=' + title + '&redirect_to=/discussion/discussions/view?discussiontitle=' + title, 'Create new answer') }}</p>
-
-        <dd>
-            <textarea name="answer" rows="3" cols="100"> Esto sería la respuesta </textarea>
-        </dd>
+        <dt>Answer</dt>
+        <input type="text" name="answer" value="{{ answer }}" />
 
         <p class="alignright">{{ button('bluebg', '/discussion/discussions/comment?discussiontitle=' + title + '&redirect_to=/discussion/discussions/view?discussiontitle=' + title, 'Create new comment') }}</p>
-
-        <dd>
-            <textarea name="comment" rows="3" cols="100"> Esto sería el comentario </textarea>
-        </dd>
+        <dt>Comment</dt>
+        <input type="text" name="comment" value="{{ comment }}" />
 
         
     </dl>

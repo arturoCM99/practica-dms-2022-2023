@@ -104,7 +104,8 @@ class DiscussionEndpoints():
         name = session['user']
         title: str = str(request.args.get('discussiontitle'))
         redirect_to = request.args.get('redirect_to', default='/discussion/discussions')
-        return render_template('discussion/discussions/view.html', name=name, roles=session['roles'], redirect_to=redirect_to, title=title)
+        return render_template('discussion/discussions/view.html', name=name, roles=session['roles'], redirect_to=redirect_to, title=title, content="Contenido de discusión", 
+        answer="Respuesta a pregunta", comment="Comentario a respuesta")
 
     
     def get_discussion_discussions_answer(auth_service: AuthService) -> Union[Response, Text]:
