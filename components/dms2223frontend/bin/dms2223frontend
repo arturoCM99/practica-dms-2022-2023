@@ -55,6 +55,19 @@ def get_home():
 def get_discussion():
     return DiscussionEndpoints.get_discussion(auth_service)
 
+@app.route("/discussion/discussions", methods=['GET'])
+def get_discussion_discussions():
+    return DiscussionEndpoints.get_discussion_discussions(auth_service)
+
+@app.route("/discussion/discussions/new", methods=['GET'])
+def get_discussion_discussions_new():
+    return DiscussionEndpoints.get_discussion_discussions_new(auth_service)
+
+@app.route("/discussion/discussions/view", methods=['GET'])
+def get_discussion_discussions_view():
+    return DiscussionEndpoints.get_discussion_discussions_view(auth_service)
+
+
 @app.route("/moderator", methods=['GET'])
 def get_moderator():
     return ModeratorEndpoints.get_moderator(auth_service)
