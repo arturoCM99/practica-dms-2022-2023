@@ -5,20 +5,13 @@
     <form action="/discussion/discussions/report" method="post">
         <input type="hidden" name="redirect_to" value="{{ redirect_to }}" />
         <dl>
-            <dt>{{ title }}</dt>
+		<dt><p>Cuentanos que sucede</p></dt>
             <dd>
-                <textarea name="content" rows="3" cols="100"> Esto sería el contenido </textarea>
-            </dd>
-            <dt>Answer</dt>
-            <dd>
-                <textarea name="content" rows="20" cols="100"> Esto sería el contenido </textarea>
-            </dd>
-            <dt>Comment</dt>
-            <dd>
-                <textarea name="content" rows="20" cols="100"> Write the commemt... </textarea>
+                <textarea name="content" rows="15" cols="100"></textarea>
             </dd>
             
+            
         </dl>
-        <p class="alignright">{{ submit_button('bluebg', 'Save changes') }}{{ button('redbg', redirect_to, 'Cancel') }}</p>
+        <p class="alignright">{{ submit_button('bluebg', 'Enviar reporte') }}{{ button('redbg', redirect_to, 'Cancel') }}</p>
     </form>
 {% endblock %}
