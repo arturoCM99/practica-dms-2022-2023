@@ -99,6 +99,14 @@ def post_discussion_discussions_comment():
 def get_moderator():
     return ModeratorEndpoints.get_moderator(auth_service)
 
+@app.route("/moderator/reports", methods=['GET'])
+def get_moderator_reports():
+    return ModeratorEndpoints.get_moderator_reports(auth_service)
+
+@app.route("/moderator/moderator/view", methods=['GET'])
+def get_report_view():
+    return ModeratorEndpoints.get_report_view(auth_service)
+
 @app.route("/admin", methods=['GET'])
 def get_admin():
     return AdminEndpoints.get_admin(auth_service)

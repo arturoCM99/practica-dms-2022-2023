@@ -1,0 +1,23 @@
+{% extends "moderator.html" %}
+{% from "macros/buttons.html" import button, submit_button %}
+{% block contentsubheading %}Moderator view{% endblock %}
+{% block moderatorcontent %}
+
+
+    
+    <dl>
+        <dt> <h2>{{title}}</h2></dt>
+        
+        
+
+        <dt>Contenido del reporte leido</dt>
+        
+
+        
+    </dl>
+    <p class="alignright">{{ button('redbg', redirect_to, 'Back') }}</p>
+    
+
+
+   
+{% endblock %}
