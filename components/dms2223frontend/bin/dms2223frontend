@@ -107,6 +107,10 @@ def get_moderator_reports():
 def get_report_view():
     return ModeratorEndpoints.get_report_view(auth_service)
 
+@app.route("/moderator/moderator/resolution", methods=['GET'])
+def get_moderator_resolution_report():
+    return ModeratorEndpoints.get_moderator_resolution_report(auth_service)
+
 @app.route("/admin", methods=['GET'])
 def get_admin():
     return AdminEndpoints.get_admin(auth_service)
