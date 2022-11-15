@@ -29,30 +29,30 @@ class DiscussionEndpoints():
         name = session['user']
         return render_template('discussion.html', name=name, roles=session['roles'])
 
+    @staticmethod
     def get_discussion_discussions(auth_service: AuthService) -> Union[Response, Text]:
-            """ Handles the GET requests to the discussion root endpoint.
+        """ Handles the GET requests to the discussion root endpoint.
 
-            Args:
-                - auth_service (AuthService): The authentication service.
+        Args:
+            - auth_service (AuthService): The authentication service.
 
-            Returns:
-                - Union[Response,Text]: The generated response to the request.
-            """
-            if not WebAuth.test_token(auth_service):
-                return redirect(url_for('get_login'))
-            if Role.DISCUSSION.name not in session['roles']:
-                return redirect(url_for('get_home'))
-            name = session['user']
+        Returns:
+            - Union[Response,Text]: The generated response to the request.
+        """
+        if not WebAuth.test_token(auth_service):
+            return redirect(url_for('get_login'))
+        if Role.DISCUSSION.name not in session['roles']:
+            return redirect(url_for('get_home'))
+        name = session['user']
 
-            #Discussions de prueba hasta backend
-            discussions=[{"title" : "Primera prueba discusion", "content" : "Contenido de la primera discusión"}, 
-            {"title" : "Segunda prueba discusion", "content" : "Contenido de la segunda discusión"},
-            {"title" : "Tercera prueba discusion", "content" : "Contenido de la tercera discusión"}]
+        #Discussions de prueba hasta backend
+        discussions=[{"title" : "Primera prueba discusion", "content" : "Contenido de la primera discusión"}, 
+        {"title" : "Segunda prueba discusion", "content" : "Contenido de la segunda discusión"},
+        {"title" : "Tercera prueba discusion", "content" : "Contenido de la tercera discusión"}]
 
-            return render_template('discussion/discussions.html', name=name, roles=session['roles'], discussions=discussions)
+        return render_template('discussion/discussions.html', name=name, roles=session['roles'], discussions=discussions)
 
-
-    
+    @staticmethod
     def get_discussion_discussions_new(auth_service: AuthService) -> Union[Response, Text]:
         """ Handles the GET requests to the discussion root endpoint.
 
@@ -70,6 +70,7 @@ class DiscussionEndpoints():
         redirect_to = request.args.get('redirect_to', default='/discussion/discussions')
         return render_template('discussion/discussions/new.html', name=name, roles=session['roles'], redirect_to=redirect_to)
     
+    @staticmethod
     def post_discussion_discussions_new(auth_service: AuthService) -> Union[Response, Text]:
         """ Handles the POST requests to the discussion root endpoint.
 
@@ -87,7 +88,7 @@ class DiscussionEndpoints():
         redirect_to = request.args.get('redirect_to', default='/discussion/discussions')
         return redirect(redirect_to)
 
-
+    @staticmethod
     def get_discussion_discussions_view(auth_service: AuthService) -> Union[Response, Text]:
         """ Handles the GET requests to the discussion root endpoint.
 
@@ -107,7 +108,7 @@ class DiscussionEndpoints():
         return render_template('discussion/discussions/view.html', name=name, roles=session['roles'], redirect_to=redirect_to, title=title, content="Contenido de discusión", 
         answer="Respuesta a pregunta", comment="Comentario a respuesta")
 
-    
+    @staticmethod
     def get_discussion_discussions_answer(auth_service: AuthService) -> Union[Response, Text]:
         """ Handles the GET requests to the discussion root endpoint.
 
@@ -126,7 +127,7 @@ class DiscussionEndpoints():
         redirect_to = request.args.get('redirect_to', default='/discussion/discussions/view')
         return render_template('discussion/discussions/answer.html', name=name, roles=session['roles'], redirect_to=redirect_to, title=title)
 
-
+    @staticmethod
     def post_discussion_discussions_answer(auth_service: AuthService) -> Union[Response, Text]:
         """ Handles the POST requests to the discussion root endpoint.
 
@@ -144,7 +145,7 @@ class DiscussionEndpoints():
         redirect_to = request.args.get('redirect_to', default='/discussion/discussions')
         return redirect(redirect_to)
 
-    
+    @staticmethod
     def get_discussion_discussions_comment(auth_service: AuthService) -> Union[Response, Text]:
         """ Handles the GET requests to the discussion root endpoint.
 
@@ -163,6 +164,7 @@ class DiscussionEndpoints():
         redirect_to = request.args.get('redirect_to', default='/discussion/discussions/view')
         return render_template('discussion/discussions/comment.html', name=name, roles=session['roles'], redirect_to=redirect_to, title=title)
 
+    @staticmethod
     def post_discussion_discussions_comment(auth_service: AuthService) -> Union[Response, Text]:
         """ Handles the POST requests to the discussion root endpoint.
 
@@ -179,6 +181,7 @@ class DiscussionEndpoints():
         redirect_to = request.args.get('redirect_to', default='/discussion/discussions')
         return redirect(redirect_to)
 
+    @staticmethod
     def get_discussion_discussions_report(auth_service: AuthService) -> Union[Response, Text]:
         """ Handles the GET requests to the discussion root endpoint.
 
@@ -197,7 +200,7 @@ class DiscussionEndpoints():
         redirect_to = request.args.get('redirect_to', default='/discussion/discussions/view')
         return render_template('discussion/discussions/report.html', name=name, roles=session['roles'], redirect_to=redirect_to, title=title)
 
-
+    @staticmethod
     def post_discussion_discussions_report(auth_service: AuthService) -> Union[Response, Text]:
         """ Handles the POST requests to the discussion root endpoint.
 
