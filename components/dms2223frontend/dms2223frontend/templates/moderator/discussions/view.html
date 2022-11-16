@@ -1,0 +1,26 @@
+{% extends "moderator.html" %}
+{% from "macros/buttons.html" import button, submit_button %}
+{% block contentsubheading %}Moderator view{% endblock %}
+{% block moderatorcontent %}
+
+
+    
+<dl>
+    <dt> {{ title }}</dt>
+    
+    <input type="text" name="content" value="{{ content }}"/><br>
+    <br>
+    <dt>Answer</dt>
+    <input type="text" name="answer" value="{{ answer }}" /><br>
+    <br>
+    <dt>Comment</dt>
+    <input type="text" name="comment" value="{{ comment }}" />
+<br>
+<var>Number of votes:</var><output id="votos"></output>
+
+</dl>
+
+
+   
+{% endblock %}
+

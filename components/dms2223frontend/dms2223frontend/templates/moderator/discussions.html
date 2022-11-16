@@ -1,0 +1,21 @@
+{% extends "moderator.html" %}
+{% from "macros/buttons.html" import button, submit_button %}
+{% block title %}{% block subtitle %}{% endblock %}Moderator{% endblock %}
+{% block contentheading %}Moderator management{% endblock %}
+{% block moderatorcontent %}
+    <table class="fillwidth highlightrows">
+        <tbody>
+            <tr>
+                <th class="alignleft">Report Title</th><th></th>
+            </tr>
+            {% for report in reports %}
+                <tr class="highlightable">
+                    <td class="alignleft">{{ button('grayBg', '/moderator/discussions/view?reporttitle=' + report['title'] + '&redirect_to=/moderator/discussions', report['title']) }}</td>
+                </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+    
+{% endblock %}
+
