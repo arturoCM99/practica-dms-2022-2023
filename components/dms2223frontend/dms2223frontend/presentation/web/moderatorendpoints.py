@@ -71,7 +71,7 @@ class ModeratorEndpoints():
         redirect_to = request.args.get('redirect_to', default='/moderator/reports')
         return render_template('moderator/moderator/view.html', name=name, roles=session['roles'], redirect_to=redirect_to, title=title, )
 
-
+    @staticmethod
     def get_moderator_discussions(auth_service: AuthService) -> Union[Response, Text]:
             """ Handles the GET requests to the reports root endpoint.
             Args:
@@ -86,12 +86,13 @@ class ModeratorEndpoints():
             name = session['user']
 
             #Reportes de prueba hasta backend
-            reports=[{"title" : "Primera Discusion", "content" : "Contenido del primer report Deberia mostar de donde viene?"}, 
-            {"title" : "Segunda Discusion", "content" : "Contenido del segundo report "},
-            {"title" : "Tercera Discusion", "content" : "Contenido del tercer repot"}]
+            reports=[{"title" : "Primera Discusion", "content" : "Contenido de la primera discusion.Deberia mostar de donde viene?"}, 
+            {"title" : "Segunda Discusion", "content" : "Contenido de la segunda discusion."},
+            {"title" : "Tercera Discusion", "content" : "Contenido de la tercera discusion."}]
 
             return render_template('moderator/discussions.html', name=name, roles=session['roles'], reports=reports)
 
+    @staticmethod
     def get_discussions_view(auth_service: AuthService) -> Union[Response, Text]:
             """ Handles the GET requests to the report root endpoint.
             Args:
@@ -106,7 +107,8 @@ class ModeratorEndpoints():
             name = session['user']
             title: str = str(request.args.get('reporttitle'))
             redirect_to = request.args.get('redirect_to', default='/moderator/discussions')
-            return render_template('moderator/discussions/view.html', name=name, roles=session['roles'], redirect_to=redirect_to, title=title, )
+            return render_template('moderator/discussions/view.html', name=name, roles=session['roles'], redirect_to=redirect_to, title=title,content="Contenido de discusión", 
+            answer="Respuesta a pregunta", comment="Comentario a respuesta")
 
 
     @staticmethod
