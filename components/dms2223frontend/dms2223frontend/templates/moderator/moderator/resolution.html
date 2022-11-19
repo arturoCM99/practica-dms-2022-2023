@@ -5,7 +5,9 @@
     <form action="/moderator/moderator/resolution" method="post">  <!--Para  almacenar la resoucion en el futuro-->
         <input type="hidden" name="redirect_to" value="{{ redirect_to }}" />
         <dl>
-            <dt> <p>Titulo reporte: <h3>{{title}}</h3></p></dt>
+            
+            <dt><h3>{{ title }}</h3></dt>
+            
 		<dt><p><h2>Resultado del reporte</h2></p></dt>       
             <dd>
                 <textarea name="content" rows="15" cols="100">Descripción sobre la resolución del reporte...</textarea>
