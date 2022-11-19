@@ -5,6 +5,18 @@
 
 The goal of this project is to implement a basic questions and answers appliance deployed across several interconnected services.
 
+## Authors
+- Arturo Carretero Mateo
+- Alvaro Díez Sáez
+- Estela Victoria Ballester Delgado
+- Baba Bendermel Houssam Eddine
+
+## Manual de instalación
+Para realizar el proceso de instalación en el equipo es necesario descargarlo de github a través de la ventana principal del repositorio. Para descargarlo se debe
+clicar en "Code" y posteriormente en "Download ZIP".
+
+Una vez se haya descargado el archivo es necesario descomprimir dicho archivo para las posteriores ejecuciones en el terminal.
+
 ## Components
 
 The source code of the components is available under the `components` directory.
