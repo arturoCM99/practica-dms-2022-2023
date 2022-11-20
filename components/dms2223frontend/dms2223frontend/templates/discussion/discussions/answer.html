@@ -7,15 +7,15 @@
         <dl>
             <dt>{{ title }}</dt>
             <dd>
-                <textarea name="content" rows="3" cols="100"> Esto sería el contenido </textarea>
+                <textarea name="content" rows="3" cols="100" readonly> Esto sería el contenido </textarea>
             </dd>
 
-            <dt>Answer</dt>
+            <dt>Respuesta</dt>
             <dd>
-                <textarea name="content" rows="20" cols="100"> Write the answer... </textarea>
+                <textarea name="content" rows="20" cols="100">Escribe la respuesta...</textarea>
             </dd>
             
         </dl>
-        <p class="alignright">{{ submit_button('bluebg', 'Save changes') }}{{ button('redbg', redirect_to, 'Cancel') }}</p>
+        <p class="alignright">{{ submit_button('bluebg', 'Guardar cambios') }}{{ button('redbg', redirect_to, 'Cancelar') }}</p>
     </form>
 {% endblock %}

@@ -46,9 +46,9 @@ class ModeratorEndpoints():
         name = session['user']
 
         #Reportes de prueba hasta backend
-        reports=[{"title" : "Primer report", "content" : "Contenido del primer report Deberia mostar de donde viene?"}, 
-        {"title" : "Segundo report", "content" : "Contenido del segundo report "},
-        {"title" : "Tercer report", "content" : "Contenido del tercer repot"}]
+        reports=[{"title" : "Primer reporte", "content" : "Contenido del primer reporte"}, 
+        {"title" : "Segundo reporte", "content" : "Contenido del segundo reporte"},
+        {"title" : "Tercer reporte", "content" : "Contenido del tercer reporte"}]
 
         return render_template('moderator/reports.html', name=name, roles=session['roles'], reports=reports)
 
@@ -64,7 +64,7 @@ class ModeratorEndpoints():
         """
         if not WebAuth.test_token(auth_service):
             return redirect(url_for('get_login'))
-        if Role.DISCUSSION.name not in session['roles']:
+        if Role.MODERATION.name not in session['roles']:
             return redirect(url_for('get_home'))
         name = session['user']
         title: str = str(request.args.get('reporttitle'))
@@ -102,7 +102,7 @@ class ModeratorEndpoints():
             """
             if not WebAuth.test_token(auth_service):
                 return redirect(url_for('get_login'))
-            if Role.DISCUSSION.name not in session['roles']:
+            if Role.MODERATION.name not in session['roles']:
                 return redirect(url_for('get_home'))
             name = session['user']
             title: str = str(request.args.get('reporttitle'))
@@ -123,7 +123,7 @@ class ModeratorEndpoints():
         """
         if not WebAuth.test_token(auth_service):
             return redirect(url_for('get_login'))
-        if Role.DISCUSSION.name not in session['roles']:
+        if Role.MODERATION.name not in session['roles']:
             return redirect(url_for('get_home'))
         name = session['user']
         title: str = str(request.args.get('reporttitle'))
@@ -143,7 +143,7 @@ class ModeratorEndpoints():
         """
         if not WebAuth.test_token(auth_service):
             return redirect(url_for('get_login'))
-        if Role.DISCUSSION.name not in session['roles']:
+        if Role.MODERATION.name not in session['roles']:
             return redirect(url_for('get_home'))
         name = session['user']
         title: str = str(request.args.get('discussiontitle'))

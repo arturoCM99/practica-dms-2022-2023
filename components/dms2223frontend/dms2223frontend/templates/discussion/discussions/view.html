@@ -8,7 +8,7 @@
     <dl>
         <dt><h3>{{ title }}</h3></dt>
         
-        <textarea name="content" rows="10" cols="100"> Este es el contenido de la discusión </textarea>
+        <textarea name="content" rows="10" cols="100" readonly> Este es el contenido de la discusión </textarea>
 
         
 
@@ -16,7 +16,7 @@
                              {{ button('redbg', '/discussion/discussions/report?discussiontitle=' + title + '&redirect_to=/discussion/discussions/view?discussiontitle=' + title, 'Reportar pregunta') }}</p>
 
         <h3><dt>Respuesta</dt></h3>
-        <textarea name="content" rows="10" cols="100"> Esta es la respuesta a la pregunta </textarea>
+        <textarea name="content" rows="10" cols="100" readonly> Esta es la respuesta a la pregunta </textarea>
 
         <p class="alignleft">
             <button name="button">			
@@ -36,7 +36,7 @@
                               {{ button('redbg', '/discussion/discussions/report?discussiontitle=' + title + '&redirect_to=/discussion/discussions/view?discussiontitle=' + title, 'Reportar respuesta') }}</p>
         
         <h3><dt>Comentario</dt></h3>
-        <textarea name="content" rows="10" cols="100"> Este es el comentario de la respuesta </textarea>
+        <textarea name="content" rows="10" cols="100" readonly> Este es el comentario de la respuesta </textarea>
 
         <p class="alignleft"></p>
             <button name="button">			
