@@ -5,7 +5,7 @@
 
 The goal of this project is to implement a basic questions and answers appliance deployed across several interconnected services.
 
-## Authors
+## Autores
 - Arturo Carretero Mateo
 - Alvaro Díez Sáez
 - Estela Victoria Ballester Delgado
@@ -16,6 +16,30 @@ Para realizar el proceso de instalación en el equipo es necesario descargarlo d
 clicar en "Code" y posteriormente en "Download ZIP".
 
 Una vez se haya descargado el archivo es necesario descomprimir dicho archivo para las posteriores ejecuciones en el terminal.
+
+## Manual de uso
+
+## Frontend
+
+### Arquitectura
+La arquitectura de la página web es una arquitectura multicapa ya que esta se encuentra dividida en diferentes capas apiladas de las distintas estructuras de diseño.
+De esta forma se busca el objetivo de reducir las dependencias de forma coherente.
+
+La arquitectura empleada es la conocida como Documento-Vista por lo que el frontend dispone de dos capas: capa de presentación y capa de origen de datos.
+
+La capa de presentación se encarga de la gestión de la interacción entre el cliente y el sofware. En este caso la capa se encuentra en: dms2223frontend/dms2223frontend/presentation
+
+Las diferentes capas de presentación implementan las funcionalidades los distintos endpoints existentes: adminendpoints.py, commonendpoints.py, discussionendpoints.py, moderatorendpoints.py, sessionendpoints.py. Estos se encargan de realizar las llamadas a los distintos métodos necesarias para la obtención de datos y su posterior comunicación.
+
+La capa de origen de datos se encarga de la gestión de la comunicación con otros sistemas que contiene datos que usa la aplicación. En este caso la capa se encuentra en: dms2223frontend/dms2223frontend/data
+
+En esta capa se encuentran los servicios authservice.py y backendservice.py que se encargan de la obtención de datos pertenecientes a otros servicios.
+
+### Patrones de diseño
+Para la obtención de un buen diseño del software se han usado varios principios pertenecientes a los principios SOLID: Single Responsibility y Interface Segregation.
+El principio Single Responsibility considera que una clase solo debería tener una razón para cambiar y el principio Interface Segregation considera que el usuario no debería depender de métodos que no usa.
+
+En este caso estos principios se ven reflejados en las distintas clases ya que solamente mantienen las responsbilidades necesarias de cada uno dependiendo solo de los métodos y clases necesarios para el manejo. Los endpoints están organizados de forma que cada uno se encarga solamente de su respectiva responsabilidad. 
 
 ## Components
 
