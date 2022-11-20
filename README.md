@@ -21,6 +21,8 @@ Cuando se haya descargado el archivo es necesario descomprimir dicho archivo par
 
 Para poder llevar a cabo la ejecución es necesario acceder a la carpeta descomprimida que se descargó anteriormente.
 
+![man-instalación3.PNG](imagenes/man-instalación3.PNG)
+
 Una vez se está en dicha carpeta se deben introducir una serie de comandos. En el caso de que sea
 la primera vez que se ejecuta el programa en el ordenador se debe usar el siguiente comando para crear las imágenes de Docker requeridas:
 
@@ -41,6 +43,8 @@ docker-compose -f docker/config/dev.yml rm -sfv
 ```
 
 Una vez ejecutados estos comandos se puede ver como se han ejecutado y detenido exitosamente.
+
+![man-instalación2.PNG](imagenes/man-instalación2.PNG)
 
 ## Manual de uso
 - [Manual](#Manual)
@@ -122,13 +126,13 @@ De esta forma se busca el objetivo de reducir las dependencias de forma coherent
 
 La arquitectura empleada es la conocida como Documento-Vista por lo que el frontend dispone de dos capas: capa de presentación y capa de origen de datos.
 
-La capa de presentación se encarga de la gestión de la interacción entre el cliente y el sofware. En este caso la capa se encuentra en: dms2223frontend/dms2223frontend/presentation
+La capa de presentación se encarga de la gestión de la interacción entre el cliente y el sofware. En este caso la capa se encuentra en: `dms2223frontend/dms2223frontend/presentation`
 
-Las diferentes capas de presentación implementan las funcionalidades los distintos endpoints existentes: adminendpoints.py, commonendpoints.py, discussionendpoints.py, moderatorendpoints.py, sessionendpoints.py. Estos se encargan de realizar las llamadas a los distintos métodos necesarias para la obtención de datos y su posterior comunicación.
+Las diferentes capas de presentación implementan las funcionalidades los distintos endpoints existentes: `adminendpoints.py` `commonendpoints.py` `discussionendpoints.py` `moderatorendpoints.py` `sessionendpoints.py`. Estos se encargan de realizar las llamadas a los distintos métodos necesarias para la obtención de datos y su posterior comunicación.
 
-La capa de origen de datos se encarga de la gestión de la comunicación con otros sistemas que contiene datos que usa la aplicación. En este caso la capa se encuentra en: dms2223frontend/dms2223frontend/data
+La capa de origen de datos se encarga de la gestión de la comunicación con otros sistemas que contiene datos que usa la aplicación. En este caso la capa se encuentra en: `dms2223frontend/dms2223frontend/data`
 
-En esta capa se encuentran los servicios authservice.py y backendservice.py que se encargan de la obtención de datos pertenecientes a otros servicios.
+En esta capa se encuentran los servicios `authservice.py` y `backendservice.py` que se encargan de la obtención de datos pertenecientes a otros servicios.
 
 ### Patrones de diseño
 Para la obtención de un buen diseño del software se han usado varios principios pertenecientes a los principios SOLID: Single Responsibility y Interface Segregation.
