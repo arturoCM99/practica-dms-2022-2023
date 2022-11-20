@@ -1,12 +1,12 @@
 {% extends "moderator.html" %}
 {% from "macros/buttons.html" import button, submit_button %}
 {% block title %}{% block subtitle %}{% endblock %}Moderator{% endblock %}
-{% block contentheading %}Moderator view discussions{% endblock %}
+{% block contentheading %}Moderador ver discusiones{% endblock %}
 {% block moderatorcontent %}
     <table class="fillwidth highlightrows">
         <tbody>
             <tr>
-                <th class="alignleft">Discussion Title</th><th></th>
+                <th class="alignleft">Título de la discusión</th><th></th>
             </tr>
             {% for report in reports %}
                 <tr class="highlightable">
