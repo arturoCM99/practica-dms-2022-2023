@@ -129,3 +129,25 @@ class ModeratorEndpoints():
         title: str = str(request.args.get('reporttitle'))
         redirect_to = request.args.get('redirect_to', default='/moderator/moderator')
         return render_template('moderator/moderator/resolution.html', name=name, roles=session['roles'], redirect_to=redirect_to, title=title )
+
+
+    @staticmethod
+    def get_moderator_moderator_view(auth_service: AuthService) -> Union[Response, Text]:
+        """ Handles the GET requests to the discussion root endpoint.
+
+        Args:
+            - auth_service (AuthService): The authentication service.
+
+        Returns:
+            - Union[Response,Text]: The generated response to the request.
+        """
+        if not WebAuth.test_token(auth_service):
+            return redirect(url_for('get_login'))
+        if Role.DISCUSSION.name not in session['roles']:
+            return redirect(url_for('get_home'))
+        name = session['user']
+        title: str = str(request.args.get('discussiontitle'))
+        redirect_to = request.args.get('redirect_to', default='/moderator/reports')
+        return render_template('moderator/moderator/view.html', name=name, roles=session['roles'], redirect_to=redirect_to, title=title)
+
+

@@ -16,6 +16,12 @@
         <dt><p>Moderador:<textarea name="content" rows="1" cols="15"></textarea></p></dt>
             
         </dl>
-        <p class="alignright">{{ submit_button('bluebg', 'Enviar resultado reporte') }}{{ button('redbg', redirect_to, 'Cancel') }}</p>
+        <p class="alignright">{{ button('bluebg', '/moderator/reports?reporttitle=' + title + '&redirect_to=/moderator/moderator/resolution?reporttitle=' + title, 'Enviar resultado reporte') }}
+                             {{ button('redbg', '/moderator/reports?reporttitle=' + title + '&redirect_to=/moderator/moderator/resolution?reporttitle=' + title, 'Cancelar') }}</p>
+
     </form>
 {% endblock %}
+
+
+
+

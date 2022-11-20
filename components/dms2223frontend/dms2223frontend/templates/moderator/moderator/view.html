@@ -8,16 +8,14 @@
     <dl>
         <dt> <h2>{{title}}</h2></dt>
         
-        
-
-        <dt>Contenido del reporte leido</dt>
-        
-
+        <textarea name="content" rows="10" cols="100"> Contenido del reporte leído </textarea>
         
     </dl>
     
-    <p class="alignright">{{ button('redbg', '/moderator/moderator/resolution?reporttitle=' + title + '&redirect_to=/moderator/moderator/resolution?reporttitle=' + title, 'Resolver reporte') }}</p>
-    
+    <p class="alignleft">{{ button('bluebg', '/moderator/moderator/resolution?reporttitle=' + title + '&redirect_to=/moderator/moderator/resolution?reporttitle=' + title, 'Aceptar reporte') }}
+                         {{ button('redbg', '/moderator/reports?reporttitle=' + title + '&redirect_to=/moderator/moderator/resolution?reporttitle=' + title, 'Rechazar reporte') }}</p>
+
+    <p class="alignright">{{ button('redbg', '/moderator/reports?reporttitle=' + title + '&redirect_to=/moderator/moderator/resolution?reporttitle=' + title, 'Cancelar') }}</p>
 
 
    

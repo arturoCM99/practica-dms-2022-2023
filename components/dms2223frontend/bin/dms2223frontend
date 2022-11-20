@@ -79,6 +79,10 @@ def post_discussion_discussions_report():
 def get_discussion_discussions_view():
     return DiscussionEndpoints.get_discussion_discussions_view(auth_service)
 
+@app.route("/discussion/discussions/view", methods=['POST'])
+def post_discussion_discussions_view():
+    return DiscussionEndpoints.post_discussion_discussions_view(auth_service)
+
 @app.route("/discussion/discussions/answer", methods=['GET'])
 def get_discussion_discussions_answer():
     return DiscussionEndpoints.get_discussion_discussions_answer(auth_service)
@@ -118,6 +122,11 @@ def get_moderator_discussions():
 @app.route("/moderator/discussions/view", methods=['GET'])
 def get_discussions_view():
     return ModeratorEndpoints.get_discussions_view(auth_service)
+
+@app.route("/moderator/moderator/view", methods=['GET'])
+def get_moderator_moderator_view():
+    return ModeratorEndpoints.get_moderator_moderator_view(auth_service)
+
 
 @app.route("/admin", methods=['GET'])
 def get_admin():
