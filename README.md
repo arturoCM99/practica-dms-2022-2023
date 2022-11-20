@@ -13,9 +13,34 @@ The goal of this project is to implement a basic questions and answers appliance
 
 ## Manual de instalación
 Para realizar el proceso de instalación en el equipo es necesario descargarlo de github a través de la ventana principal del repositorio. Para descargarlo se debe
-clicar en "Code" y posteriormente en "Download ZIP".
+clicar en `<> Code` y posteriormente en `Download ZIP`.
 
-Una vez se haya descargado el archivo es necesario descomprimir dicho archivo para las posteriores ejecuciones en el terminal.
+![man-instalación1.png](imagenes/man-instalación1.png)
+
+Cuando se haya descargado el archivo es necesario descomprimir dicho archivo para las posteriores ejecuciones en el terminal.
+
+Para poder llevar a cabo la ejecución es necesario acceder a la carpeta descomprimida que se descargó anteriormente.
+
+Una vez se está en dicha carpeta se deben introducir una serie de comandos. En el caso de que sea
+la primera vez que se ejecuta el programa en el ordenador se debe usar el siguiente comando para crear las imágenes de Docker requeridas:
+
+```bash
+docker-compose -f docker/config/dev.yml build
+```
+
+Cuando ya se han creado dichas imágenes de Docker se ejecuta la aplicación con el comando:
+
+```bash
+docker-compose -f docker/config/dev.yml up -d
+```
+
+Y para detener y retirar los contenedores se debe introducir el comando:
+
+```bash
+docker-compose -f docker/config/dev.yml rm -sfv
+```
+
+Una vez ejecutados estos comandos se puede ver como se han ejecutado y detenido exitosamente.
 
 ## Manual de uso
 - [Manual](#Manual)
