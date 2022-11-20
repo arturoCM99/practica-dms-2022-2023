@@ -22,7 +22,7 @@ Una vez se haya descargado el archivo es necesario descomprimir dicho archivo pa
   - [Discusion](#Discusion)
     - [Ver listado de preguntas](#Ver-listado-de-preguntas)
     - [Crear preguntas](#crear-preguntas)
-    - [Crear respuestas a preguntas](#Crear respuestas a preguntas)
+    - [Crear respuestas a preguntas](#Crear-respuestas-a-preguntas)
     - [Crear comentarios a respuestas](#Crear-comentarios-a-respuestas)
     - [Votar respuestas y comentarios](#Votar-respuestas-y-comentarios)
     - [Reportar preguntas, respuestas y comentarios](#Reportar-preguntas-respuestas-y-comentarios)
