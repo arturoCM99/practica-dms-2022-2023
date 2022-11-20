@@ -18,6 +18,76 @@ clicar en "Code" y posteriormente en "Download ZIP".
 Una vez se haya descargado el archivo es necesario descomprimir dicho archivo para las posteriores ejecuciones en el terminal.
 
 ## Manual de uso
+- [Manual](#Manual)
+  - [Discusion](#Discusion)
+    - [Ver listado de preguntas](#Ver-listado-de-preguntas)
+    - [Crear preguntas](#crear-preguntas)
+    - [Crear respuestas a preguntas](#Crear respuestas a preguntas)
+    - [Crear comentarios a respuestas](#Crear-comentarios-a-respuestas)
+    - [Votar respuestas y comentarios](#Votar-respuestas-y-comentarios)
+    - [Reportar preguntas, respuestas y comentarios](#Reportar-preguntas-respuestas-y-comentarios)
+  - [Moderador](#moderador)
+    - [Ver pregunta individual](#Ver-pregunta-individual)
+    - [Ver listado de reportes y resolverlos](#Ver-listado-de-reportes-y-resolverlos)
+    - [Ocultar preguntas al aceptar reportes](#Ocultar-preguntas-al-aceptar-reportes)
+  - [Creación de nuevos usuarios](#creación-de-nuevos-usuarios)
+
+## Manual
+Para la primera entega teniendo en cuenta que sera solo la parte del front-end tendremos la siguientes funcionalidades siendo el usuario "admin".
+<br>Segun accedemos a nuestro servidor con la direccion "172.10.1.30" tendremos el siguiente login:
+![img_1.png](imagenes/img_1.png)
+Accederemos con la contraseña y usuario "admin - admin".
+<br>Una vez dentro , para poder interactuar como si fuesemos otro usuario tendremos que ir al apartado de gestion de usuarios.
+![img_2.png](imagenes/img_2.png)
+En el panel de administración podremos modificar nuestro rol permitiendo acceder al de discusión y moderador pudiendo hacer sus acciones segun el rol,
+también podremos crear nuevos usuarios.
+![img_3.png](imagenes/img_3.png)
+Guardamos para continuar.
+## Discusion
+Accederemos Discucionn, teniendo acceso a sus posibilidades y vistas atraves de la barra superior.
+![img_4.png](imagenes/img_4.png)
+Una vez en discusión podremos ver que tendremos acceso a las discusiones 
+![img_5.png](imagenes/img_5.png)
+### Ver listado de discusiones
+Una vez en las discusiones vemos que tenemos acceso a la lista de discusiones, ademas de crear preguntas.
+![img_7.png](imagenes/img_7.png)
+### Crear discusion
+Podremos crear la discusión que estará formada por el titulo y el contenido de este , al guardar los cambios esta pregunta pasara a formar parte del listado.
+![img_8.png](imagenes/img_8.png)
+### Crear respuestas a preguntas 
+Accediendo a las diferentes discusiones podremos crear las respuestas y comentarios , además de votarlos según el feedback que le queramos dar y reportarlos.
+![img_9.png](imagenes/img_9.png)
+## Moderador
+A continuacion cambiaremos el rol a moderador 
+![img_10.png](imagenes/img_10.png)
+Accemos a las funcionalidades y vistas de moderador.
+![img_14.png](imagenes/img_14.png)
+Tendremos acceso tanto a los reportes en la sección de informes y a la discussiones 
+![img_12.png](imagenes/img_12.png)
+En el apartado de discusiones podremos ver un listado de las discusiones actuales
+<br>Podremos acceder a cada una de ellas de manera individual.!
+![img_19.png](imagenes/img_19.png)
+### Ver pregunta individual
+Podremos ver la pregunta de manera individual pero sin ciertas funcionalidades disponibles como la de votar, reportar , etc ..
+![img_17.png](imagenes/img_17.png)
+### Ver listado de reportes y resolverlos
+En el apartado de informes del moderador tendremos acceso a la lista de reportes 
+![img_20.png](imagenes/img_20.png)
+Accediendo a uno de ellos de forma individual podremos resolverlos 
+![img_21.png](imagenes/img_21.png)
+Al aceptar el reporte ocultaremos las discusiones al resto de los usuarios.
+## Creación de nuevos usuarios
+Para la creacion de nuevos usuarios accederemos al apartado de admin en la barra superior.
+<br>Seguidamente accederemos a la parte de gestion de usuarios.
+![img_23.png](imagenes/img_23.png)
+Una vez ahi tendremos la posibilidad de crear usuarios
+![img_24.png](imagenes/img_24.png)
+Para poder crear el usuario tendremos que poner su nombre y contraseña nueva 
+![img_25.png](imagenes/img_25.png)
+Una vez que lo hemos creado lo editaremmos para asignar su correspondiente rol
+![img_26.png](imagenes/img_26.png)
+Aqui podremos cambiar el rol del usuario procediendo a guardar los cambios.
+![img_27.png](imagenes/img_27.png)
 
 ## Frontend
 
