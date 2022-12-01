@@ -1,0 +1,16 @@
+#!/usr/bin/env python3
+
+from dms2223common.data import Role
+from sqlalchemy.orm.session import Session
+from dms2223backend.data.config import BackendConfiguration
+from dms2223backend.data.db.resultsets import Discussions, Answers, Comments
+from dms2223backend.data.db import Schema
+
+
+cfg: BackendConfiguration = BackendConfiguration()
+cfg.load_from_file(cfg.default_config_file())
+db: Schema = Schema(cfg)
+
+session: Session = db.new_session()
+Discussions.create(session, "Título discusión 1", "Contenido de la discusión 1" )
+db.remove_session()
