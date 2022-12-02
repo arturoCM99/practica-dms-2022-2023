@@ -4,8 +4,6 @@
 from typing import Tuple, Union, Optional, List, Dict
 from http import HTTPStatus
 from flask import current_app
-#from dms2223backend.data.db.exc import DiscussionExistsError
-#from dms2223backend.data.db.exc import UserNotFoundError
 from dms2223backend.logic.exc.operationerror import OperationError
 from dms2223backend.service import DiscussionsServices
 
@@ -21,7 +19,7 @@ def list_discussions() -> Tuple[List[Dict], Optional[int]]:
     return (discussions, HTTPStatus.OK.value)
 
 
-def create_discussion(body: Dict, token_info: Dict) -> Tuple[Union[Dict, str], Optional[int]]:
+def create_discussion(body: Dict) -> Tuple[Union[Dict, str], Optional[int]]:
     """Creates a discussion if the requestor has the discussion role.
 
     Args:
@@ -38,7 +36,7 @@ def create_discussion(body: Dict, token_info: Dict) -> Tuple[Union[Dict, str], O
     with current_app.app_context():
         try:
             discussion: Dict = DiscussionsServices.create_discussion(
-                current_app.authservice, token_info, body['title'], body['content'],current_app.db, current_app.cfg
+                body['title'], body['content'],current_app.db
             )
         except ValueError:
             return ('A mandatory argument is missing', HTTPStatus.BAD_REQUEST.value)

@@ -102,6 +102,7 @@ paths:
       security:
         - user_token: []
           api_key: []
+          
   # /discussions/{qid}:
   #   get:
   #     summary: Gets a single question
@@ -831,6 +832,7 @@ components:
       required:
         - id
         - title
+
     QuestionStubModel:
       allOf:
         - $ref: '#/components/schemas/QuestionCoreModel'

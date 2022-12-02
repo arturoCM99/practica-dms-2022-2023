@@ -24,7 +24,7 @@ class DiscussionsServices():
             - Dict: Dictonary that contains the discussions's data.
         """
       
-        session: Session = schema.new_discussion()
+        session: Session = schema.new_session()
         out: Dict = {}
         try:
             discussion = DiscussionLogic.get_discussion_by_id(session, id)
@@ -60,7 +60,7 @@ class DiscussionsServices():
         return out
 
     @staticmethod
-    def create_discussion(auth_service: AuthService, token_info: Dict, title:str, content: str, schema: Schema) -> Dict:
+    def create_discussion(title:str, content: str, schema: Schema) -> Dict:
         """Creates a discussion.
 
         Args:
@@ -71,10 +71,10 @@ class DiscussionsServices():
             - Dict: Dictonary that contains the discussions's data.
         """
       
-        session: Session = schema.new_discussion()
+        session: Session = schema.new_session()
         out: Dict = {}
         try:
-            new_discussion: Discussion = DiscussionLogic.create(auth_service, token_info, title, content, session)
+            new_discussion: Discussion = DiscussionLogic.create(session, title, content)
             
             out['id'] = new_discussion.id
             out['title'] = new_discussion.title

@@ -79,7 +79,7 @@ class BackendService():
         """
         response_data: ResponseData = ResponseData()
         response: requests.Response = requests.post(
-            self.__base_url() + '/discussion/new',
+            self.__base_url() + '/discussions',
             json={
                 'title': title,
                 'content': content
@@ -95,3 +95,5 @@ class BackendService():
         else:
             response_data.add_message(response.content.decode('ascii'))
         return response_data
+
+   
