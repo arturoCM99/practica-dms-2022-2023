@@ -214,6 +214,7 @@ class DiscussionEndpoints():
 
     @staticmethod
     def get_discussion_discussions_report(auth_service: AuthService, backend_service: BackendService) -> Union[Response, Text]:
+
         """ Handles the GET requests to the discussion root endpoint.
 
         Args:

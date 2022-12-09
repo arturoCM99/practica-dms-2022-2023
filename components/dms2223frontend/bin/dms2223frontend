@@ -118,7 +118,7 @@ def get_moderator_resolution_report():
 
 @app.route("/moderator/discussions", methods=['GET'])
 def get_moderator_discussions():
-    return ModeratorEndpoints.get_moderator_discussions(auth_service)
+    return ModeratorEndpoints.get_moderator_discussions(auth_service,backend_service)
 
 @app.route("/moderator/discussions/view", methods=['GET'])
 def get_discussions_view():
