@@ -25,18 +25,27 @@ class DiscussionsServices():
         """
       
         session: Session = schema.new_session()
-        out: Dict = {}
+        out:  List[Dict] = []
         try:
-            discussion = DiscussionLogic.get_discussion_by_id(session, id)
-            if discussion is not None:
-                out['id'] = discussion.id
-                out['title'] = discussion.title      
-                out['content'] = discussion.content
+            discussions = DiscussionLogic.get_discussion_by_id(session, id)
+            for discuss in discussions: #Siempre es una lista de 1
+                discussion: Discussion = discuss[0]
+                answered: int = discuss[1]
+                if discussion is not None:
+                    out.append({
+                    'id': discussion.id,
+                    'title': discussion.title,
+                    'content': discussion.content,
+                    'answered': answered})
+
         except Exception as ex:
             raise ex
         finally:
             schema.remove_session()
-        return out
+        salida : Dict = {}
+        for sal in out:
+            salida = sal
+        return salida
 
     @staticmethod
     def list_discussions(schema: Schema) -> List[Dict]:

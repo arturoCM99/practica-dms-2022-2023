@@ -70,11 +70,15 @@ class DiscussionLogic():
         Returns:
             - Optional[Discussion]: The result of the `Discussion`.
         """
-
+        list_of_discussions = []
         try:
             discussion = Discussions.get_discussion_by_id(session, id)
+            if (Answers.discussion_has_answers(session, discussion.id)):     # type: ignore
+                list_of_discussions.append([discussion,1])
+            else:
+                list_of_discussions.append([discussion,0])
         except Exception as ex:
             raise ex
-        return discussion
+        return list_of_discussions
 
     

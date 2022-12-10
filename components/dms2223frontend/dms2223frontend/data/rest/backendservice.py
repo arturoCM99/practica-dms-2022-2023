@@ -126,9 +126,15 @@ class BackendService():
             - ResponseData: If successful, the contents hold a list of user data dictionaries.
               Otherwise, the contents will be an empty list.
         """
+        #post para recibir de la discusion adecuada
         response_data: ResponseData = ResponseData()
-        response: requests.Response = requests.get(
+        response: requests.Response = requests.post(
             self.__base_url() + f'/discussions/{id}',
+            json={
+                'discussionid': id,
+                'content': "vacio"
+                
+            },
             headers={
                 'Authorization': f'Bearer {token}',
                 self.__apikey_header: self.__apikey_secret
