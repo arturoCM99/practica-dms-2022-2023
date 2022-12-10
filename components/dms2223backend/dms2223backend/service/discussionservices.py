@@ -29,7 +29,8 @@ class DiscussionsServices():
         try:
             discussion = DiscussionLogic.get_discussion_by_id(session, id)
             if discussion is not None:
-                out['id'] = discussion.id      
+                out['id'] = discussion.id
+                out['title'] = discussion.title      
                 out['content'] = discussion.content
         except Exception as ex:
             raise ex
@@ -49,12 +50,15 @@ class DiscussionsServices():
         """
         out: List[Dict] = []
         session: Session = schema.new_session()
-        discussions: List[Dict] = DiscussionLogic.list_all(session)
-        for discussion in discussions:
+        discussions: List[List] = DiscussionLogic.list_all(session)
+        for discuss in discussions:
+            discussion: Discussion = discuss[0]
+            answered: int = discuss[1]
             out.append({
                 'id': discussion.id,
                 'title': discussion.title,
-                'content': discussion.content
+                'content': discussion.content,
+                'answered': answered
             })
         schema.remove_session()
         return out

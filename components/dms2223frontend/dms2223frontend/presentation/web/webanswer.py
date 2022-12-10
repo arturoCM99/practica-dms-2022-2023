@@ -8,11 +8,11 @@ from dms2223frontend.data.rest.backendservice import BackendService
 from .webutils import WebUtils
 
 
-class WebQuestion():
+class WebAnswer():
     """ Monostate class responsible of the user operation utilities.
     """
     @staticmethod
-    def list_discussions(backend_service:BackendService) -> List:
+    def list_answers(backend_service:BackendService, id: int) -> Optional[List]:
         """ Gets the list of discussions from the backend service.
 
         Args:
@@ -21,14 +21,14 @@ class WebQuestion():
         Returns:
             - List: A list of user data dictionaries (the list may be empty)
         """
-        response: ResponseData = backend_service.list_discussions(session.get('token'))
+        response: ResponseData = backend_service.list_answers(session.get('token'), id)
         WebUtils.flash_response_messages(response)
         if response.get_content() is not None and isinstance(response.get_content(), list):
             return list(response.get_content())
         return []
 
     @staticmethod
-    def create_discussion(backend_service: BackendService, title: str, content: str) -> Optional[Dict]:
+    def create_answer(backend_service: BackendService, discussionid: int, content: str) -> Optional[Dict]:
         """ Creates a discussion in the backend service.
 
         Args:
@@ -40,12 +40,6 @@ class WebQuestion():
             - Dict: A dictionary with the newly created user if successful.
             - None: Nothing on error.
         """
-        response: ResponseData = backend_service.create_discussion(session.get('token'), title, content)
-        WebUtils.flash_response_messages(response)
-        return response.get_content()
-
-    @staticmethod
-    def get_discussion(backend_service: BackendService, id: int) -> Optional[Dict]:
-        response: ResponseData = backend_service.get_discussion(session.get('token'), id)
+        response: ResponseData = backend_service.create_answer(session.get('token'), discussionid, content)
         WebUtils.flash_response_messages(response)
         return response.get_content()

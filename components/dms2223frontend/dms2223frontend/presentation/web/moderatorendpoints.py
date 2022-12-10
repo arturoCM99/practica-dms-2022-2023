@@ -5,8 +5,8 @@ from typing import Text, Union
 from flask import redirect, url_for, session, render_template, request
 from werkzeug.wrappers import Response
 from dms2223common.data import Role
-from dms2223frontend.data.rest.backendservice import BackendService
 from dms2223frontend.data.rest.authservice import AuthService
+from dms2223frontend.data.rest.backendservice import BackendService
 from .webauth import WebAuth
 from .webquestion import WebQuestion
 
@@ -74,7 +74,7 @@ class ModeratorEndpoints():
         return render_template('moderator/moderator/view.html', name=name, roles=session['roles'], redirect_to=redirect_to, title=title, )
 
     @staticmethod
-    def get_moderator_discussions(auth_service: AuthService,backend_services: BackendService) -> Union[Response, Text]:
+    def get_moderator_discussions(auth_service: AuthService, backend_services: BackendService) -> Union[Response, Text]:
             """ Handles the GET requests to the reports root endpoint.
             Args:
                 - auth_service (AuthService): The authentication service.
@@ -87,7 +87,7 @@ class ModeratorEndpoints():
                 return redirect(url_for('get_home'))
             name = session['user']
 
-            #Reportes de prueba hasta backend
+            
 
             return render_template('moderator/discussions.html', name=name, roles=session['roles'], reports=WebQuestion.list_discussions(backend_services))
 

@@ -4,7 +4,7 @@
 from typing import Tuple, Union, Optional, List, Dict
 from http import HTTPStatus
 from flask import current_app
-from dms2223backend.data.db.exc import UserNotFoundError
+from dms2223backend.data.db.exc import DiscussionNotFoundError
 from dms2223backend.logic.exc.operationerror import OperationError
 from dms2223backend.service import CommentsServices
 
@@ -31,7 +31,7 @@ def comment(body: Dict, token_info: Dict) -> Tuple[Optional[str], Optional[int]]
             )
         except ValueError:
             return ('A mandatory argument is missing', HTTPStatus.BAD_REQUEST.value)
-        except UserNotFoundError:
+        except DiscussionNotFoundError:
             return('User does not exist', HTTPStatus.NOT_FOUND.value)
         except OperationError:
             return ('The user with the given username can not create a discussion', HTTPStatus.FORBIDDEN.value)

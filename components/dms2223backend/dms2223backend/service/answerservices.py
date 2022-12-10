@@ -13,7 +13,7 @@ class AnswersServices():
     """ Monostate class that provides high-level services to handle user-related use cases.
     """
     @staticmethod
-    def answer(auth_service: AuthService, token_info: Dict, username: str, discussionId: int, schema: Schema) -> None:
+    def answer(discussionid: int, content: str, schema: Schema) -> Dict:
         """Answers a discussion.
 
         Args:
@@ -26,16 +26,24 @@ class AnswersServices():
         """
       
         session: Session = schema.new_session()
+        out: Dict = {}
         try:
-            AnswerLogic.create(auth_service, token_info, session, username, discussionId)
+            new_answer: Answer = AnswerLogic.answer(session, discussionid, content)
+            
+            out['id'] = new_answer.id
+            out['discussionid'] = new_answer.discussionid
+            out['content'] = new_answer.content
+
         except Exception as ex:
             raise ex
         finally:
             schema.remove_session()
+        return out
+
 
 
     @staticmethod
-    def list_all_for_discussion(discussionId: int, schema: Schema) -> List[Dict]:
+    def list_all_for_discussion(discussionid: int, schema: Schema) -> List[Dict]:
         """Lists the answers of a discussion if the requestor has the discussion role.
 
         Args:
@@ -47,17 +55,18 @@ class AnswersServices():
         """
         out: List[Dict] = []
         session: Session = schema.new_session()
-        answers: List[Answer] = AnswerLogic.list_all_for_discussion(session, discussionId)
+        answers: List[Answer] = AnswerLogic.list_all(session, discussionid)
         for answer in answers:
             out.append({
                 'id': answer.id,
-                'username': answer.username
+                'discussionid': answer.discussionid,
+                'content': answer.content
             })
         schema.remove_session()
         return out
 
     @staticmethod
-    def get_answer(username: str, id: int, schema: Schema) -> Dict:
+    def get_answer(discussionid: int, schema: Schema) -> Dict:
         """Obtains the answer of a discussion and user.
 
         Args:
@@ -71,8 +80,9 @@ class AnswersServices():
         
         session: Session = schema.new_session()
         out: Dict = {}
-        answer: Answer = AnswerLogic.get_answer(username, id, session)
+        answer: Answer = AnswerLogic.get_answer(session, discussionid)
         out['id'] = answer.id
-        out['username'] = answer.username
+        out['discussionid'] = answer.discussionid
+        out['content'] = answer.content
         schema.remove_session()
         return out

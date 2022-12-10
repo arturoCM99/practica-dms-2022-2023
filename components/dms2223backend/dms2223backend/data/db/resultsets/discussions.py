@@ -33,7 +33,7 @@ class Discussions():
             - User: The created `Discussion` result.
         """
         if not title or not content:
-            raise ValueError('A tile and a content hash are required.')
+            raise ValueError('A title and a content hash are required.')
         try:
             new_discussion = Discussion(title, content)
             session.add(new_discussion)

@@ -10,7 +10,10 @@
             </tr>
             {% for discussion in discussions %}
                 <tr class="highlightable">
-                    <td class="alignleft">{{ button('grayBg', '/discussion/discussions/view?discussiontitle=' + discussion['title'] + '&redirect_to=/discussion/discussions', discussion['title']) }}</td>
+                    
+                    <td class="alignleft">{{ button('grayBg', '/discussion/discussions/view?discussionid=' + discussion['id']|string
+                        + '&redirect_to=/discussion/discussions', discussion['title']) }}</td>
+                    
                 </tr>
             {% endfor %}
 

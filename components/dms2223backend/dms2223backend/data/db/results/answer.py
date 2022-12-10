@@ -11,7 +11,7 @@ class Answer(ResultBase):
     """ Definition and storage of answer ORM records.
     """
 
-    def __init__(self, user: str, id: int, content: str):
+    def __init__(self, discussionid: int, content: str):
         """ Constructor method.
 
         Initializes a answer record.
@@ -22,7 +22,7 @@ class Answer(ResultBase):
 
         """
         
-        self.id: str = id
+        self.discussionid: int = discussionid
         #self.user: str = user
         self.content: str = content
         
@@ -42,7 +42,8 @@ class Answer(ResultBase):
         return Table(
             'answers',
             metadata,
-            Column('id', Integer, ForeignKey('discussions.id'), primary_key=True),
+            Column('id', Integer, autoincrement='auto', primary_key=True),
+            Column('discussionid', Integer, ForeignKey('discussions.id'), nullable=False),
             # Column('user', String, nullable=False),
             Column('content', String(250), nullable=False)
             # Column('time', TIME, nullable = False),

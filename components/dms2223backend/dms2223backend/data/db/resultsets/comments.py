@@ -8,7 +8,7 @@ from sqlalchemy.orm.session import Session  # type: ignore
 from sqlalchemy.orm.exc import NoResultFound  # type: ignore
 from dms2223backend.data.db.results import Comment
 from dms2223backend.data.db.exc import DiscussionExistsError
-from dms2223backend.data.db.exc import UserNotFoundError
+from dms2223backend.data.db.exc import DiscussionNotFoundError
 
 class Comments():
     """ Class responsible of table-level comments operations.
@@ -41,7 +41,7 @@ class Comments():
             return new_comment
         except IntegrityError as ex:
             session.rollback()
-            raise UserNotFoundError() from ex
+            raise DiscussionNotFoundError() from ex
         except:
             session.rollback()
             raise

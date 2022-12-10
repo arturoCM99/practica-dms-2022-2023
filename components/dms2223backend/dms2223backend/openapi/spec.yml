@@ -103,181 +103,181 @@ paths:
         - user_token: []
           api_key: []
           
-  # /discussions/{qid}:
-  #   get:
-  #     summary: Gets a single question
-  #     # operationId: TODO: Set to the fully-qualified name of the function handling the operation
-  #     parameters:
-  #       - $ref: '#/components/parameters/QuestionIdPathParam'
-  #     responses:
-  #       '200':
-  #         description: The full data of a question.
-  #         content:
-  #           'application/json':
-  #             schema:
-  #               $ref: '#/components/schemas/QuestionFullModel'
-  #             example:
-  #               qid: 1
-  #               title: 'Recommended size for the work groups?'
-  #               body: 'Which is the recommended size for the work groups in your opinion?'
-  #               owner:
-  #                 username: 'user1'
-  #               timestamp: 1665574089.0
-  #       '404':
-  #         description: The question does not exist.
-  #         content:
-  #           'text/plain':
-  #             schema:
-  #               type: string
-  #             example: 'The question with qid 5 does not exist.'
-  #     tags:
-  #       - discussion
-  #       - questions
-  #     security:
-  #       - user_token: []
-  #         api_key: []
-  # /discussions/{qid}/answers:
-  #   get:
-  #     summary: Gets the answers for a question
-  #     description: |
-  #       Fetches the full answers for a given question.
-  #     # operationId: TODO: Set to the fully-qualified name of the function handling the operation
-  #     parameters:
-  #       - $ref: '#/components/parameters/QuestionIdPathParam'
-  #     responses:
-  #       '200':
-  #         description: The answers for a question.
-  #         content:
-  #           'application/json':
-  #             schema:
-  #               $ref: '#/components/schemas/AnswersListModel'
-  #             example:
-  #               - id: 1
-  #                 qid: 1
-  #                 timestamp: 1665575089
-  #                 body: I would suggest four members.
-  #                 owner:
-  #                   username: user3
-  #                 votes: 4
-  #                 user_votes:
-  #                   user3: true
-  #                   user4: true
-  #                   user5: true
-  #                   user6: true
-  #                 comments:
-  #                   - id: 2
-  #                     aid: 1
-  #                     timestamp: 1665575389
-  #                     body: Evaluation criteria may be relaxed due to the tight number of members
-  #                     sentiment: POSITIVE
-  #                     owner:
-  #                       username: user4
-  #                     votes: 2
-  #                     user_votes:
-  #                       user6: true
-  #                       user5: true
-  #                   - id: 1
-  #                     aid: 1
-  #                     timestamp: 1665575289
-  #                     body: Enough to distribute the workload equitatively
-  #                     sentiment: POSITIVE
-  #                     owner:
-  #                       username: user4
-  #                     votes: 1
-  #                     user_votes:
-  #                       user6: true
-  #                   - id: 3
-  #                     aid: 1
-  #                     timestamp: 1665577389
-  #                     body: The deadline may be too close for the workload and a group this "small"
-  #                     sentiment: NEGATIVE
-  #                     owner:
-  #                       username: user4
-  #                     votes: 0
-  #                     user_votes: []
-  #               - id: 2
-  #                 qid: 1
-  #                 timestamp: 1665675089
-  #                 body: Five members.
-  #                 owner:
-  #                   username: user2
-  #                 votes: 2
-  #                 user_votes:
-  #                   user1: true
-  #                   user2: true
-  #                 comments:
-  #                   - id: 4
-  #                     aid: 2
-  #                     timestamp: 1665777389
-  #                     body: The teacher may be stricter if groups are too large
-  #                     sentiment: NEGATIVE
-  #                     owner:
-  #                       username: user4
-  #                     votes: 0
-  #                     user_votes: []
-  #       '404':
-  #         description: The question does not exist.
-  #         content:
-  #           'text/plain':
-  #             schema:
-  #               type: string
-  #             example: 'The question with qid 5 does not exist.'
-  #     tags:
-  #       - discussion
-  #       - questions
-  #       - answers
-  #     security:
-  #       - user_token: []
-  #         api_key: []
-  #   post:
-  #     summary: Answers a question
-  #     description: |
-  #       This operation creates an answer for an existing question.
+  /discussions/{id}:
+    get:
+      summary: Gets a single question
+      operationId: dms2223backend.presentation.rest.discussion.get_discussion_by_id
+      parameters:
+        - $ref: '#/components/parameters/QuestionIdPathParam'
+      responses:
+        '200':
+          description: The full data of a question.
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/QuestionFullModel'
+              example:
+                id: 1
+                title: 'Recommended size for the work groups?'
+                body: 'Which is the recommended size for the work groups in your opinion?'
+                owner:
+                  username: 'user1'
+                timestamp: 1665574089.0
+        '404':
+          description: The question does not exist.
+          content:
+            'text/plain':
+              schema:
+                type: string
+              example: 'The question with qid 5 does not exist.'
+      tags:
+        - discussion
+      security:
+        - user_token: []
+          api_key: []
+  
+  /discussions/{id}/answers:
+    get:
+      summary: Gets the answers for a question
+      description: |
+        Fetches the full answers for a given question.
+      operationId: dms2223backend.presentation.rest.answer.get_answer
+      parameters:
+        - $ref: '#/components/parameters/QuestionIdPathParam'
+      responses:
+        '200':
+          description: The answers for a question.
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/AnswersListModel'
+              example:
+                - id: 1
+                  qid: 1
+                  timestamp: 1665575089
+                  body: I would suggest four members.
+                  owner:
+                    username: user3
+                  votes: 4
+                  user_votes:
+                    user3: true
+                    user4: true
+                    user5: true
+                    user6: true
+                  comments:
+                    - id: 2
+                      aid: 1
+                      timestamp: 1665575389
+                      body: Evaluation criteria may be relaxed due to the tight number of members
+                      sentiment: POSITIVE
+                      owner:
+                        username: user4
+                      votes: 2
+                      user_votes:
+                        user6: true
+                        user5: true
+                    - id: 1
+                      aid: 1
+                      timestamp: 1665575289
+                      body: Enough to distribute the workload equitatively
+                      sentiment: POSITIVE
+                      owner:
+                        username: user4
+                      votes: 1
+                      user_votes:
+                        user6: true
+                    - id: 3
+                      aid: 1
+                      timestamp: 1665577389
+                      body: The deadline may be too close for the workload and a group this "small"
+                      sentiment: NEGATIVE
+                      owner:
+                        username: user4
+                      votes: 0
+                      user_votes: []
+                - id: 2
+                  qid: 1
+                  timestamp: 1665675089
+                  body: Five members.
+                  owner:
+                    username: user2
+                  votes: 2
+                  user_votes:
+                    user1: true
+                    user2: true
+                  comments:
+                    - id: 4
+                      aid: 2
+                      timestamp: 1665777389
+                      body: The teacher may be stricter if groups are too large
+                      sentiment: NEGATIVE
+                      owner:
+                        username: user4
+                      votes: 0
+                      user_votes: []
+        '404':
+          description: The question does not exist.
+          content:
+            'text/plain':
+              schema:
+                type: string
+              example: 'The question with qid 5 does not exist.'
+      tags:
+        - discussion
+        - answers
+      security:
+        - user_token: []
+          api_key: []
+    post:
+      summary: Answers a question
+      description: |
+        This operation creates an answer for an existing question.
 
-  #       The owner of the answer will be automatically retrieved from the
-  #       user token against the authorization server.
-  #     # operationId: TODO: Set to the fully-qualified name of the function handling the operation
-  #     parameters:
-  #       - $ref: '#/components/parameters/QuestionIdPathParam'
-  #     requestBody:
-  #       content:
-  #         'application/json':
-  #           schema:
-  #             $ref: '#/components/schemas/AnswerCreationModel'
-  #           example:
-  #             qid: 1
-  #             body: I would suggest four members.
-  #     responses:
-  #       '201':
-  #         description: The created answer.
-  #         content:
-  #           'application/json':
-  #             schema:
-  #               $ref: '#/components/schemas/AnswerFullModel'
-  #             example:
-  #               id: 1
-  #               qid: 1
-  #               timestamp: 1665575089
-  #               body: I would suggest four members.
-  #               owner:
-  #                 username: user3
-  #               votes: 0
-  #               user_votes: {}
-  #               comments: []
-  #       '404':
-  #         description: The question does not exist.
-  #         content:
-  #           'text/plain':
-  #             schema:
-  #               type: string
-  #             example: 'The question with qid 5 does not exist.'
-  #     tags:
-  #       - discussion
-  #       - questions
-  #       - answers
-  #     security:
-  #       - user_token: []
-  #         api_key: []
+        The owner of the answer will be automatically retrieved from the
+        user token against the authorization server.
+      operationId: dms2223backend.presentation.rest.answer.answer
+      parameters:
+        - $ref: '#/components/parameters/QuestionIdPathParam'
+      requestBody:
+        description: Answer data.
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/AnswerCreationModel'
+            example:
+              qid: 1
+              body: I would suggest four members.
+      responses:
+        '201':
+          description: The created answer.
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/AnswerFullModel'
+              example:
+                id: 1
+                qid: 1
+                timestamp: 1665575089
+                body: I would suggest four members.
+                owner:
+                  username: user3
+                votes: 0
+                user_votes: {}
+                comments: []
+        '404':
+          description: The question does not exist.
+          content:
+            'text/plain':
+              schema:
+                type: string
+              example: 'The question with qid 5 does not exist.'
+      tags:
+        - discussion
+        - answers
+      security:
+        - user_token: []
+          api_key: []
+  
   # /discussions/{qid}/reports:
   #   post:
   #     summary: Reports a question
@@ -828,14 +828,20 @@ components:
           type: integer
         title:
           type: string
+        content:
+          type: string
+        answered:
+          type: integer
       
       required:
         - id
         - title
+        - content
 
     QuestionStubModel:
       allOf:
         - $ref: '#/components/schemas/QuestionCoreModel'
+
     QuestionFullModel:
       allOf:
         - $ref: '#/components/schemas/QuestionCoreModel'
@@ -848,6 +854,7 @@ components:
           required:
             - title
             - content
+
     QuestionCreationModel:
       type: object
       properties:
@@ -855,6 +862,7 @@ components:
           type: string
         content:
           type: string
+          
       required:
         - title
         - content
@@ -874,40 +882,48 @@ components:
     AnswerFullModel:
       type: object
       properties:
-        id:
-          type: integer
-        qid:
-          type: integer
-        timestamp:
-          type: number
-        body:
+        #aid:
+        #  type: integer
+        #id:
+        #  type: integer
+        # timestamp:
+        #   type: number
+        content:
           type: string
-        owner:
-          $ref: '#/components/schemas/UserCoreModel'
-        votes:
-          type: integer
-          minimum: 0
-          default: 0
-          nullable: false
-        user_votes:
-          type: object
-          additionalProperties:
-            type: boolean
-        comments:
-          $ref: '#/components/schemas/CommentsListModel'
+        # owner:
+        #   $ref: '#/components/schemas/UserCoreModel'
+        # votes:
+        #   type: integer
+        #   minimum: 0
+        #   default: 0
+        #   nullable: false
+        # user_votes:
+        #   type: object
+        #   additionalProperties:
+        #     type: boolean
+        
+        #comments:
+        #  $ref: '#/components/schemas/CommentsListModel'
+      
       required:
-        - id
-        - qid
-        - timestamp
-        - body
-        - owner
+        #- aid
+        #- id
+        #- timestamp
+        - content
+        #- owner
     AnswerCreationModel:
       type: object
       properties:
-        body:
+        #aid:
+        #  type: integer
+        #id:
+        #  type: integer
+        content:
           type: string
       required:
-        - body
+        #- aid
+        #- id
+        - content
     AnswersListModel:
       type: array
       items:
@@ -945,13 +961,13 @@ components:
         - id
         - aid
         - timestamp
-        - body
+        - content
         - sentiment
         - owner
     CommentCreationModel:
       type: object
       properties:
-        body:
+        content:
           type: string
         sentiment:
           type: string
@@ -961,7 +977,7 @@ components:
             - NEGATIVE
           default: NEUTRAL
       required:
-        - body
+        - content
         - sentiment
     CommentsListModel:
       type: array
@@ -1098,7 +1114,7 @@ components:
       nullable: true
   parameters:
     QuestionIdPathParam:
-      name: qid
+      name: id
       description: Question identifier.
       in: path
       schema:

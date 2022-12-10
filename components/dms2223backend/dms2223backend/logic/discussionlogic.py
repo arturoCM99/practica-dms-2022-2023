@@ -7,7 +7,7 @@ from sqlalchemy.exc import IntegrityError  # type: ignore
 from sqlalchemy.orm.session import Session  # type: ignore
 from sqlalchemy.orm.exc import NoResultFound  # type: ignore
 from dms2223backend.data.db.results import Discussion
-from dms2223backend.data.db.resultsets import Discussions
+from dms2223backend.data.db.resultsets import Discussions, Answers
 from dms2223backend.data.db.exc import DiscussionExistsError
 
 
@@ -28,10 +28,10 @@ class DiscussionLogic():
 
         Raises:
             - ValueError: If either the username or the password_hash is empty.
-            - UserExistsError: If a user with the same username already exists.
+            - DiscussionExistsError: If a user with the same username already exists.
 
         Returns:
-            - User: The created `Discussion` result.
+            - Discussion: The created `Discussion` result.
         """
         
         try:
@@ -54,7 +54,10 @@ class DiscussionLogic():
         discussions = Discussions.list_all(session)
         list_of_discussions : List[List] = []
         for discussion in discussions:
-            list_of_discussions.append(discussion)
+            if (Answers.discussion_has_answers(session, discussion.id)):     # type: ignore
+                list_of_discussions.append([discussion,1])
+            else:
+                list_of_discussions.append([discussion,0])
         return list_of_discussions
 
     @staticmethod

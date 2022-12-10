@@ -13,4 +13,6 @@ db: Schema = Schema(cfg)
 
 session: Session = db.new_session()
 Discussions.create(session, "Título discusión 1", "Contenido de la discusión 1" )
+Discussions.create(session, "Título discusión 2", "Contenido de la discusión 2" )
+Answers.answer(session, 1, "Respuesta 1")
 db.remove_session()

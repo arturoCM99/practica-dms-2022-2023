@@ -2,4 +2,4 @@
 """
 
 from .discussionexistserror import DiscussionExistsError
-from .usernotfounderror import UserNotFoundError
+from .discussionnotfounderror import DiscussionNotFoundError

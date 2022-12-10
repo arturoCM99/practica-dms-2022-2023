@@ -4,13 +4,13 @@
 from typing import Tuple, Union, Optional, List, Dict
 from http import HTTPStatus
 from flask import current_app
-from dms2223backend.data.db.exc import UserNotFoundError
+from dms2223backend.data.db.exc import DiscussionNotFoundError
 from dms2223backend.logic.exc.operationerror import OperationError
 from dms2223backend.service import AnswersServices
 
 
 
-def answer(body: Dict, token_info: Dict) -> Tuple[Optional[str], Optional[int]]:
+def answer(body: Dict) -> Tuple[Optional[str], Optional[int]]:
     """Answers a discussion if the requestor has the discussion role.
 
     Args:
@@ -26,19 +26,19 @@ def answer(body: Dict, token_info: Dict) -> Tuple[Optional[str], Optional[int]]:
     """
     with current_app.app_context():
         try:
-            AnswersServices.answer(
-                current_app.authservice, token_info, body['username'], body['discussionId'],current_app.db, current_app.cfg
+            answer = AnswersServices.answer(
+                body['discussionid'], body['content'], current_app.db
             )
         except ValueError:
             return ('A mandatory argument is missing', HTTPStatus.BAD_REQUEST.value)
-        except UserNotFoundError:
+        except DiscussionNotFoundError:
             return('User does not exist', HTTPStatus.NOT_FOUND.value)
         except OperationError:
             return ('The user with the given username can not create a discussion', HTTPStatus.FORBIDDEN.value)
-    return (None, HTTPStatus.OK.value)
+    return (answer, HTTPStatus.OK.value)
 
 
-def list_all_for_discussion(discussionId: int) -> Tuple[Union[List[Dict], str], Optional[int]]:
+def list_all_for_discussion(discussionid: int) -> Tuple[Union[List[Dict], str], Optional[int]]:
     """Lists the answers of a discussion if the requestor has the discussion role.
 
     Args:
@@ -53,7 +53,7 @@ def list_all_for_discussion(discussionId: int) -> Tuple[Union[List[Dict], str], 
     with current_app.app_context():
         try:
             answers: List[Dict] = AnswersServices.list_all_for_discussion(
-                discussionId, current_app.db
+                discussionid, current_app.db
             )
         except ValueError:
             return ('A mandatory argument is missing', HTTPStatus.BAD_REQUEST.value)
@@ -62,7 +62,7 @@ def list_all_for_discussion(discussionId: int) -> Tuple[Union[List[Dict], str], 
 
 
 
-def get_answer(username: str, id: int) -> Tuple[Union[Dict, str], Optional[int]]:
+def get_answer(discussionid: int) -> Tuple[Union[Dict, str], Optional[int]]:
     """Obtains the answer of a discussion and user.
 
     Args:
@@ -78,7 +78,7 @@ def get_answer(username: str, id: int) -> Tuple[Union[Dict, str], Optional[int]]
     with current_app.app_context():
         try:
             answer: Dict = AnswersServices.get_answer(
-                username, id,current_app.db
+                discussionid,current_app.db
             )
         except ValueError:
             return ('A mandatory argument is missing', HTTPStatus.BAD_REQUEST.value)
