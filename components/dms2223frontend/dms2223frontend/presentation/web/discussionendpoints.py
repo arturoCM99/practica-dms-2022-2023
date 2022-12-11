@@ -182,7 +182,7 @@ class DiscussionEndpoints():
             return redirect(url_for('get_discussion_discussions_answer', discussionid=discussionid, redirect_to=redirect_to))
         redirect_to = request.form['redirect_to']
         if not redirect_to:
-            discussionid: int = int(str(request.form['discussionid']))
+            discussioni = int(str(request.form['discussionid']))
             redirect_to = url_for('get_discussion_discussions_view', discussionid=discussionid)
 
         return redirect(redirect_to)
