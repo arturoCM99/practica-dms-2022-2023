@@ -28,15 +28,14 @@ class DiscussionsServices():
         out:  List[Dict] = []
         try:
             discussions = DiscussionLogic.get_discussion_by_id(session, id)
-            for discuss in discussions: #Siempre es una lista de 1
-                discussion: Discussion = discuss[0]
-                answered: int = discuss[1]
-                if discussion is not None:
-                    out.append({
-                    'id': discussion.id,
-                    'title': discussion.title,
-                    'content': discussion.content,
-                    'answered': answered})
+            discussion: Discussion = discussions[0]
+            answered: int = discussions[1]
+            if discussion is not None:
+                out.append({
+                'id': discussion.id,
+                'title': discussion.title,
+                'content': discussion.content,
+                'answered': answered})
 
         except Exception as ex:
             raise ex
