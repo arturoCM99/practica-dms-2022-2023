@@ -28,8 +28,8 @@ class DiscussionsServices():
         out:  List[Dict] = []
         try:
             discussions = DiscussionLogic.get_discussion_by_id(session, id)
-            discussion: Discussion = discussions[0]
-            answered: int = discussions[1]
+            discussion: Discussion = discussions[0][0]
+            answered: int = discussions[0][1]
             if discussion is not None:
                 out.append({
                 'id': discussion.id,

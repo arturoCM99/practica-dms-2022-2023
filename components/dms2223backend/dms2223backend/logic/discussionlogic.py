@@ -74,11 +74,9 @@ class DiscussionLogic():
         try:
             discussion = Discussions.get_discussion_by_id(session, id)
             if (Answers.discussion_has_answers(session, id)):
-                list_of_discussions.append(discussion)
-                list_of_discussions.append(1)
+                list_of_discussions.append([discussion, 1])
             else:
-                list_of_discussions.append(discussion)
-                list_of_discussions.append(0)
+                list_of_discussions.append([discussion, 0])
         except Exception as ex:
             raise ex
         return list_of_discussions

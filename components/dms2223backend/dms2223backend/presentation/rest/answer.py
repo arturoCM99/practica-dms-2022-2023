@@ -10,7 +10,7 @@ from dms2223backend.service import AnswersServices
 
 
 
-def answer(body: Dict) -> Tuple[Optional[Dict], Optional[int]]:
+def answer(body: Dict) -> Tuple[Union[Dict, str], Optional[int]]:
     """Answers a discussion if the requestor has the discussion role.
 
     Args:
