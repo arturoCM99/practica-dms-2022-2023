@@ -76,5 +76,7 @@ Finalmente, los ficheros de la capa de datos se encuentran en: `components/dms22
 
 ## Principios SOLID
 Se cumple correctamente el principio SOLID de Single responsability ya que cada clase cumple con su funcion concreta encargandose de un objetivo especifico, como puede ser la separacion de la base de datos de el resto de funcionalidades.
+
 Cumple tambien con el principio SOLID Ope/Closed como podemos ver las distintas clases pueden extenderser con vista al futuro sin llegar a alterar su codigo.
+
 El principio de Interface segregation tambien se cumpliría ya que los clientes no estarían en la necesidad de depender de metodos y datos que no utilizaría cumpliendo la granularidad.Para ello diferenciamos bien las funcionlidades de unos endpoints de otros.
