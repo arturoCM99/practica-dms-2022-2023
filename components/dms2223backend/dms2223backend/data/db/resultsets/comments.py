@@ -60,7 +60,7 @@ class Comments():
     def answer_has_comments(session: Session, answerid: int) -> bool:
         if not answerid:
             raise ValueError('A discussion id is required.')
-        answers = Comments.list_all_for_discussion(session, answerid)
+        answers = Comments.list_all_for_answer(session, answerid)
 
         return len(answers) != 0
 

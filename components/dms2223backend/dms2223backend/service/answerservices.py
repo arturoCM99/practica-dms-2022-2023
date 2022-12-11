@@ -30,7 +30,7 @@ class AnswersServices():
         try:
             new_answer: Answer = AnswerLogic.answer(session, discussionid, content)
             
-            out['id'] = new_answer.id
+            out['id'] = new_answer.id #type: ignore
             out['discussionid'] = new_answer.discussionid
             out['content'] = new_answer.content
 
@@ -58,7 +58,7 @@ class AnswersServices():
         answers: List[Answer] = AnswerLogic.list_all(session)
         for answer in answers:
             out.append({
-                'id': answer.id,
+                'id': answer.id, #type: ignore
                 'discussionid': answer.discussionid,
                 'content': answer.content
             })
@@ -81,7 +81,7 @@ class AnswersServices():
         session: Session = schema.new_session()
         out: Dict = {}
         answer: Answer = AnswerLogic.get_answer(session, discussionid)
-        out['id'] = answer.id
+        out['id'] = answer.id #type: ignore
         out['discussionid'] = answer.discussionid
         out['content'] = answer.content
         schema.remove_session()

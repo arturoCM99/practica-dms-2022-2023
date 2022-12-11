@@ -28,7 +28,7 @@ class CommentsServices():
         try:
             new_comment: Comment = CommentLogic.comment(session, answerid, content)
             
-            out['id'] = new_comment.id
+            out['id'] = new_comment.id #type: ignore
             out['answerid'] = new_comment.answerid
             out['content'] = new_comment.content
 
@@ -54,7 +54,7 @@ class CommentsServices():
         comments: List[Comment] = CommentLogic.list_all(session)
         for comment in comments:
             out.append({
-                'id': comment.id,
+                'id': comment.id, #type: ignore
                 'answerid': comment.answerid,
                 'content': comment.content
             })
@@ -76,7 +76,7 @@ class CommentsServices():
         session: Session = schema.new_session()
         out: Dict = {}
         comment: Comment = CommentLogic.get_comment(session, answerid)
-        out['id'] = comment.id
+        out['id'] = comment.id #type: ignore
         out['answerid'] = comment.answerid
         out['content'] = comment.content
         schema.remove_session()

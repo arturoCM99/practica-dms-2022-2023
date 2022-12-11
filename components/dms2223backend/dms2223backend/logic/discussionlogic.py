@@ -54,7 +54,7 @@ class DiscussionLogic():
         discussions = Discussions.list_all(session)
         list_of_discussions : List[List] = []
         for discussion in discussions:
-            if (Answers.discussion_has_answers(session, discussion.id)):
+            if (Answers.discussion_has_answers(session, discussion.id)): #type: ignore
                 list_of_discussions.append([discussion,1])
             else:
                 list_of_discussions.append([discussion,0])

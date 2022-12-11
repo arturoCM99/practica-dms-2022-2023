@@ -26,7 +26,7 @@ def comment(body: Dict) -> Tuple[Union[Dict, str], Optional[int]]:
     """
     with current_app.app_context():
         try:
-            answer = CommentsServices.answer(
+            answer = CommentsServices.comment(
                 body['discussionid'], body['content'], current_app.db
             )
         except ValueError:
@@ -75,7 +75,7 @@ def get_comment(answerid: int) -> Tuple[Union[Dict, str], Optional[int]]:
     """
     with current_app.app_context():
         try:
-            answer: Dict = CommentsServices.get_answer(
+            answer: Dict = CommentsServices.get_comment(
                 answerid,current_app.db
             )
         except ValueError:

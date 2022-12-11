@@ -30,7 +30,7 @@ class CommentLogic():
             - User: The created `Discussion` result.
         """
         try:
-            new_comment: Comment = Comments.answer(session, answerid, content)
+            new_comment: Comment = Comments.comment(session, answerid, content)
            
         except Exception as ex:
             raise ex

@@ -32,7 +32,7 @@ class DiscussionsServices():
             answered: int = discussions[0][1]
             if discussion is not None:
                 out.append({
-                'id': discussion.id,
+                'id': discussion.id,#type: ignore
                 'title': discussion.title,
                 'content': discussion.content,
                 'answered': answered})
@@ -63,7 +63,7 @@ class DiscussionsServices():
             discussion: Discussion = discuss[0]
             answered: int = discuss[1]
             out.append({
-                'id': discussion.id,
+                'id': discussion.id,#type: ignore
                 'title': discussion.title,
                 'content': discussion.content,
                 'answered': answered
@@ -88,7 +88,7 @@ class DiscussionsServices():
         try:
             new_discussion: Discussion = DiscussionLogic.create(session, title, content)
             
-            out['id'] = new_discussion.id
+            out['id'] = new_discussion.id#type: ignore
             out['title'] = new_discussion.title
             out['content'] = new_discussion.content
 
