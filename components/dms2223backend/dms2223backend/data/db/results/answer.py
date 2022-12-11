@@ -2,7 +2,7 @@
 """
 
 from typing import Dict
-from sqlalchemy import Table, MetaData, Column, String , Integer, TIME, DATE ,ForeignKey # type: ignore
+from sqlalchemy import Table, MetaData, Column, String , Integer ,ForeignKey # type: ignore
 from sqlalchemy.orm import relationship  # type: ignore
 from dms2223backend.data.db.results.resultbase import ResultBase
 from dms2223backend.data.db.results.comment import Comment

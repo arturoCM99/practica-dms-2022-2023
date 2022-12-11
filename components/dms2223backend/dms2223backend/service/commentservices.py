@@ -12,11 +12,10 @@ class CommentsServices():
     """ Monostate class that provides high-level services to handle user-related use cases.
     """
     @staticmethod
-    def comment(auth_service: AuthService, token_info: Dict, username: str, discussionId: int, schema: Schema) -> None:
+    def comment(answerid: int, content: str, schema: Schema) -> Dict:
         """Comments an answer.
 
         Args:
-            - username (str): Username string.
             - discussionId (int): Discussion id.
             - schema (Schema): A database handler where the discussions are mapped into.
 
@@ -25,16 +24,22 @@ class CommentsServices():
         """
       
         session: Session = schema.new_session()
+        out: Dict = {}
         try:
-            CommentLogic.create(auth_service, token_info, session, username, discussionId)
+            new_comment: Comment = CommentLogic.comment(session, answerid, content)
+            
+            out['id'] = new_comment.id
+            out['answerid'] = new_comment.answerid
+            out['content'] = new_comment.content
+
         except Exception as ex:
             raise ex
         finally:
             schema.remove_session()
-
+        return out
 
     @staticmethod
-    def list_all_for_answer(discussionId: int, schema: Schema) -> List[Dict]:
+    def list_all_for_answer(answerid: int, schema: Schema) -> List[Dict]:
         """Lists the comments of a discussion if the requestor has the discussion role.
 
         Args:
@@ -46,17 +51,18 @@ class CommentsServices():
         """
         out: List[Dict] = []
         session: Session = schema.new_session()
-        comments: List[Comment] = CommentLogic.list_all_for_discussion(session, discussionId)
+        comments: List[Comment] = CommentLogic.list_all(session)
         for comment in comments:
             out.append({
                 'id': comment.id,
-                'username': comment.username
+                'answerid': comment.answerid,
+                'content': comment.content
             })
         schema.remove_session()
         return out
 
     @staticmethod
-    def get_comment(username: str, id: int, schema: Schema) -> Dict:
+    def get_comment(answerid: int, schema: Schema) -> Dict:
         """Obtains the comment of a discussion and user.
 
         Args:
@@ -67,11 +73,11 @@ class CommentsServices():
         Returns:
             - Dict: Comment of the answer.
         """
-        
         session: Session = schema.new_session()
         out: Dict = {}
-        comment: Comment = CommentLogic.get_answer(username, id, session)
+        comment: Comment = CommentLogic.get_comment(session, answerid)
         out['id'] = comment.id
-        out['username'] = comment.username
+        out['answerid'] = comment.answerid
+        out['content'] = comment.content
         schema.remove_session()
         return out

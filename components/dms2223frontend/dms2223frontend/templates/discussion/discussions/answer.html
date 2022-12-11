@@ -5,7 +5,6 @@
     <form action="/discussion/discussions/answer" method="post">
         <input type="hidden" name="redirect_to" value="{{ redirect_to }}" />
         <input type="hidden" name="discussionid" value="{{ discussion['id'] }}" />
-        {{ discussion }}
         <dl>
             <h3><dt>{{ discussion['title'] }}</dt></h3>
             <p>{{ discussion['content'] }}</p>

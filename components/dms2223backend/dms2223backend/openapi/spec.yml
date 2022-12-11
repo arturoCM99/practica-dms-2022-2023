@@ -461,56 +461,56 @@ paths:
   #     security:
   #       - user_token: []
   #         api_key: []
-  # /answers/{aid}/comments:
-  #   post:
-  #     summary: Comments an answer
-  #     description: |
-  #       This operation creates a comment for an existing answer.
+  /answers/{aid}/comments:
+    post:
+      summary: Comments an answer
+      description: |
+        This operation creates a comment for an existing answer.
 
-  #       The owner of the comment will be automatically retrieved from the user
-  #       token against the authorization server.
-  #     # operationId: TODO: Set to the fully-qualified name of the function handling the operation
-  #     parameters:
-  #       - $ref: '#/components/parameters/AnswerIdPathParam'
-  #     requestBody:
-  #       content:
-  #         'application/json':
-  #           schema:
-  #             $ref: '#/components/schemas/CommentCreationModel'
-  #           example:
-  #             body: Evaluation criteria may be relaxed due to the tight number of members
-  #             sentiment: POSITIVE
-  #     responses:
-  #       '201':
-  #         description: The created comment.
-  #         content:
-  #           'application/json':
-  #             schema:
-  #               $ref: '#/components/schemas/CommentFullModel'
-  #             example:
-  #               id: 2
-  #               aid: 1
-  #               timestamp: 1665575389
-  #               body: Evaluation criteria may be relaxed due to the tight number of members
-  #               sentiment: POSITIVE
-  #               owner:
-  #                 username: user4
-  #               votes: 0
-  #               user_votes: {}
-  #       '404':
-  #         description: The answer does not exist.
-  #         content:
-  #           'text/plain':
-  #             schema:
-  #               type: string
-  #             example: 'The answer with aid 50 does not exist.'
-  #     tags:
-  #       - discussion
-  #       - answers
-  #       - comments
-  #     security:
-  #       - user_token: []
-  #         api_key: []
+        The owner of the comment will be automatically retrieved from the user
+        token against the authorization server.
+      operationId: dms2223backend.presentation.rest.comment.comment
+      parameters:
+        - $ref: '#/components/parameters/AnswerIdPathParam'
+      requestBody:
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/CommentCreationModel'
+            example:
+              body: Evaluation criteria may be relaxed due to the tight number of members
+              sentiment: POSITIVE
+      responses:
+        '201':
+          description: The created comment.
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/CommentFullModel'
+              example:
+                id: 2
+                aid: 1
+                timestamp: 1665575389
+                body: Evaluation criteria may be relaxed due to the tight number of members
+                sentiment: POSITIVE
+                owner:
+                  username: user4
+                votes: 0
+                user_votes: {}
+        '404':
+          description: The answer does not exist.
+          content:
+            'text/plain':
+              schema:
+                type: string
+              example: 'The answer with aid 50 does not exist.'
+      tags:
+        - discussion
+        - answers
+        - comments
+      security:
+        - user_token: []
+          api_key: []
   # /answers/{aid}/reports:
   #   post:
   #     summary: Reports an answer
@@ -902,8 +902,8 @@ components:
         #   additionalProperties:
         #     type: boolean
         
-        #comments:
-        #  $ref: '#/components/schemas/CommentsListModel'
+        comments:
+          $ref: '#/components/schemas/CommentsListModel'
       
       required:
         #- aid
@@ -932,53 +932,56 @@ components:
     CommentFullModel:
       type: object
       properties:
-        id:
-          type: integer
-        aid:
-          type: integer
-        timestamp:
-          type: number
-        body:
-          type: string
-        sentiment:
-          type: string
-          enum:
-            - POSITIVE
-            - NEUTRAL
-            - NEGATIVE
-        owner:
-          $ref: '#/components/schemas/UserCoreModel'
-        votes:
-          type: integer
-          minimum: 0
-          default: 0
-          nullable: false
-        user_votes:
-          type: object
-          additionalProperties:
-            type: boolean
+        content:
+            type: string
+        # id:
+        #   type: integer
+        # aid:
+        #   type: integer
+        # timestamp:
+        #   type: number
+        # body:
+        #   type: string
+        # sentiment:
+        #   type: string
+        #   enum:
+        #     - POSITIVE
+        #     - NEUTRAL
+        #     - NEGATIVE
+        # owner:
+        #   $ref: '#/components/schemas/UserCoreModel'
+        # votes:
+        #   type: integer
+        #   minimum: 0
+        #   default: 0
+        #   nullable: false
+        # user_votes:
+        #   type: object
+        #   additionalProperties:
+        #     type: boolean
       required:
-        - id
-        - aid
-        - timestamp
         - content
-        - sentiment
-        - owner
+        # - id
+        # - aid
+        # - timestamp
+        # - content
+        # - sentiment
+        # - owner
     CommentCreationModel:
       type: object
       properties:
         content:
           type: string
-        sentiment:
-          type: string
-          enum:
-            - POSITIVE
-            - NEUTRAL
-            - NEGATIVE
-          default: NEUTRAL
+        # sentiment:
+        #   type: string
+        #   enum:
+        #     - POSITIVE
+        #     - NEUTRAL
+        #     - NEGATIVE
+        #   default: NEUTRAL
       required:
         - content
-        - sentiment
+        #- sentiment
     CommentsListModel:
       type: array
       items:

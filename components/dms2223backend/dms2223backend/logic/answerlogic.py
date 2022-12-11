@@ -1,13 +1,11 @@
 """ AnswerLogic class module.
 """
 
-from typing import List, Optional
+from typing import List
 from sqlalchemy.orm.session import Session  # type: ignore
-from dms2223backend.data.rest import AuthService
 from dms2223backend.data.db.results import Answer
 from dms2223backend.data.db.resultsets import Answers
-from dms2223backend.logic.exc.operationerror import OperationError
-from dms2223common.data.rest import ResponseData
+
 
 
 class AnswerLogic():
