@@ -7,10 +7,8 @@ The goal of this project is to implement a basic questions and answers appliance
 
 ## Autores
 - Arturo Carretero Mateo
-- Alvaro Díez Sáez
+- Álvaro Díez Sáez
 - Estela Victoria Ballester Delgado
-- Baba Bendermel Houssam Eddine
-
 ## Manual de instalación
 Para realizar el proceso de instalación en el equipo es necesario descargarlo de github a través de la ventana principal del repositorio. Para descargarlo se debe
 clicar en `<> Code` y posteriormente en `Download ZIP`.
@@ -62,24 +60,24 @@ Una vez ejecutados estos comandos se puede ver como se han ejecutado y detenido 
   - [Creación de nuevos usuarios](#creación-de-nuevos-usuarios)
 
 ## Manual
-Para la primera entega teniendo en cuenta que sera solo la parte del front-end tendremos la siguientes funcionalidades siendo el usuario "admin".
-<br>Segun accedemos a nuestro servidor con la direccion "172.10.1.30" tendremos el siguiente login:
+Para la primera entrega teniendo en cuenta que será solo la parte del front-end tendremos las siguientes funcionalidades siendo el usuario "admin".
+<br>Según accedemos a nuestro servidor con la dirección "172.10.1.30" tendremos el siguiente login:
 
 ![img_1.png](imagenes/img_1.png)
 
 Accederemos con la contraseña y usuario "admin - admin".
-<br>Una vez dentro , para poder interactuar como si fuesemos otro usuario tendremos que ir al apartado de gestion de usuarios.
+<br>Una vez dentro, para poder interactuar como si fuésemos otro usuario tendremos que ir al apartado de gestión de usuarios.
 
 ![img_2.png](imagenes/img_2.png)
 
-En el panel de administración podremos modificar nuestro rol permitiendo acceder al de discusión y moderador pudiendo hacer sus acciones segun el rol,
-también podremos crear nuevos usuarios.
+En el panel de administración podremos modificar nuestro rol permitiendo acceder al de discusión y moderador pudiendo hacer sus acciones según el rol.
+También podremos crear nuevos usuarios.
 
 ![img_3.png](imagenes/img_3.png)
 
 Guardamos para continuar.
-## Discusion
-Accederemos Discucionn, teniendo acceso a sus posibilidades y vistas atraves de la barra superior.
+## Discussion
+Accederemos Discussion, teniendo acceso a sus posibilidades y vistas a través de la barra superior.
 
 ![img_4.png](imagenes/img_4.png)
 
@@ -88,30 +86,30 @@ Una vez en discusión podremos ver que tendremos acceso a las discusiones.
 ![img_5.png](imagenes/img_5.png)
 
 ### Ver listado de discusiones
-Una vez en las discusiones vemos que tenemos acceso a la lista de discusiones, ademas de crear preguntas.
+Una vez en las discusiones vemos que tenemos acceso a la lista de discusiones, además de crear preguntas.
 
 ![img_7.png](imagenes/img_7.png)
 
-### Crear discusion
-Podremos crear la discusión que estará formada por el titulo y el contenido de este , al guardar los cambios esta pregunta pasara a formar parte del listado.
+### Crear discussion
+Podremos crear la discusión que estará formada por el titulo y el contenido de este, al guardar los cambios esta pregunta pasará a formar parte del listado.
 
 ![img_8.png](imagenes/img_8.png)
 
 ### Crear respuestas a preguntas 
-Accediendo a las diferentes discusiones podremos crear las respuestas y comentarios , además de votarlos según el feedback que le queramos dar y reportarlos.
+Accediendo a las diferentes discusiones podremos crear las respuestas y comentarios, además de votarlos según el feedback que le queramos dar y reportarlos.
 
 ![img_9.png](imagenes/img_9.png)
 
 ## Moderador
-A continuacion cambiaremos el rol a moderador.
+A continuación, cambiaremos el rol a moderador.
 
 ![img_10.png](imagenes/img_10.png)
 
-Accemos a las funcionalidades y vistas de moderador.
+Accedemos a las funcionalidades y vistas de moderador.
 
 ![img_14.png](imagenes/img_14.png)
 
-Tendremos acceso tanto a los reportes en la sección de informes y a la discussiones.
+Tendremos acceso tanto a los reportes en la sección de informes y a las discusiones.
 
 ![img_12.png](imagenes/img_12.png)
 
@@ -121,7 +119,7 @@ En el apartado de discusiones podremos ver un listado de las discusiones actuale
 ![img_19.png](imagenes/img_19.png)
 
 ### Ver pregunta individual
-Podremos ver la pregunta de manera individual pero sin ciertas funcionalidades disponibles como la de votar, reportar , etc...
+Podremos ver la pregunta de manera individual, pero sin ciertas funcionalidades disponibles como la de votar, reportar, etc...
 
 ![img_17.png](imagenes/img_17.png)
 
@@ -137,11 +135,11 @@ Accediendo a uno de ellos de forma individual podremos resolverlos
 Al aceptar el reporte ocultaremos las discusiones al resto de los usuarios.
 ## Creación de nuevos usuarios
 Para la creacion de nuevos usuarios accederemos al apartado de admin en la barra superior.
-<br>Seguidamente accederemos a la parte de gestion de usuarios.
+<br>Seguidamente accederemos a la parte de gestión de usuarios.
 
 ![img_23.png](imagenes/img_23.png)
 
-Una vez ahi tendremos la posibilidad de crear usuarios.
+Una vez ahí, tendremos la posibilidad de crear usuarios.
 
 ![img_24.png](imagenes/img_24.png)
 
@@ -149,11 +147,11 @@ Para poder crear el usuario tendremos que poner su nombre y contraseña nueva.
 
 ![img_25.png](imagenes/img_25.png)
 
-Una vez que lo hemos creado lo editaremmos para asignar su correspondiente rol.
+Una vez que lo hemos creado lo editaremos para asignar su correspondiente rol.
 
 ![img_26.png](imagenes/img_26.png)
 
-Aqui podremos cambiar el rol del usuario procediendo a guardar los cambios.
+Aquí podremos cambiar el rol del usuario procediendo a guardar los cambios.
 
 ![img_27.png](imagenes/img_27.png)
 
@@ -177,7 +175,7 @@ En esta capa se encuentran los servicios `authservice.py` y `backendservice.py` 
 Para la obtención de un buen diseño del software se han usado varios principios pertenecientes a los principios SOLID: Single Responsibility y Interface Segregation.
 El principio Single Responsibility considera que una clase solo debería tener una razón para cambiar y el principio Interface Segregation considera que el usuario no debería depender de métodos que no usa.
 
-En este caso estos principios se ven reflejados en las distintas clases ya que solamente mantienen las responsbilidades necesarias de cada uno dependiendo solo de los métodos y clases necesarios para el manejo. Los endpoints están organizados de forma que cada uno se encarga solamente de su respectiva responsabilidad. 
+En este caso estos principios se ven reflejados en las distintas clases ya que solamente mantienen las responsabilidades necesarias de cada uno dependiendo solo de los métodos y clases necesarios para el manejo. Los endpoints están organizados de forma que cada uno se encarga solamente de su respectiva responsabilidad. 
 
 ## Components
 
