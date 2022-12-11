@@ -74,6 +74,43 @@ Finalmente, los ficheros de la capa de datos se encuentran en: `components/dms22
 
 ## Endpoints del archivo openapi/spec.yml
 
+### Discussions
+`/discussions`:
+-	get: Llama al método list_discussions y devuelve una lista con todas las discusiones
+`/discussions/{id}`:
+-	get: Llama al método get_discussion_by_id y devuelve una unica discusión 
+`/discussions/{id}/answers`:
+-	get: Llama al método get_answer y devuelve las respuetas de una discusión  
+-	post: Llama al método answer para crear una nueva respuesta a la discusión
+`/discussions/{qid}/reports`:
+-	post: Llama al método report para crear un reporte de la discusión
+`/discussions/reports`:
+-	get: Llama al método get_discussion_report y devuelve una lista con las discusiones reportadas  
+`/discussions/reports/{qrid}`:
+-	put:Llama al método change_report, permite modificar el estado de una discusión reportada
+-	
+### Answers
+`/answers/{aid}/votes`: 
+-	post: Llama al método vote_answer, realiza un voto en una answer
+`/answers/{aid}/comments`:
+-	post:Llama al método comment, permite comentar una answer
+`/answers/{aid}/reports`:
+-	post:Llama al método report_answer, para reportar una answer
+`/answers/reports`:
+-	get:Llama al método get_aswers_report, devuelve una lista con las answer reportadas
+`/answers/reports/{arid}`:
+-	put: Llama al metodo change_report, permite modificar el estado de una answer
+
+### Comments
+`/comments/{cid}/votes`:
+-	post: Llama al método vote_comment, realiza un voto en un comment
+`/comments/{cid}/reports`:
+-	post: Llama al método report_comment, para reportar una answer
+`/comments/reports`:
+-	get: Llama al método get_aswers_report, devuelva una lista con los comments reportados
+`/comments/reports/{crid}`:
+-	put: Llama al metodo change_report, permite modificar el estado de una answer
+
 ## Principios SOLID
 Se cumple correctamente el principio SOLID de Single responsability ya que cada clase cumple con su funcion concreta encargandose de un objetivo especifico, como puede ser la separacion de la base de datos de el resto de funcionalidades.
 
