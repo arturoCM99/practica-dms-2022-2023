@@ -10,7 +10,7 @@ from dms2223backend.service import AnswersServices
 
 
 
-def answer(body: Dict) -> Tuple[Union[Dict, str], Optional[int]]:
+def answer(body: Dict, id: int) -> Tuple[Union[Dict, str], Optional[int]]:
     """Answers a discussion if the requestor has the discussion role.
 
     Args:
@@ -27,7 +27,7 @@ def answer(body: Dict) -> Tuple[Union[Dict, str], Optional[int]]:
     with current_app.app_context():
         try:
             answer = AnswersServices.answer(
-                body['discussionid'], body['content'], current_app.db
+                id, body['content'], current_app.db
             )
         except ValueError:
             return ('A mandatory argument is missing', HTTPStatus.BAD_REQUEST.value)
