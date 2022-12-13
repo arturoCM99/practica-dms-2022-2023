@@ -10,7 +10,7 @@
             </tr>
             {% for report in reports %}
                 <tr class="highlightable">
-                    <td class="alignleft">{{ button('grayBg', '/moderator/moderator/view?reporttitle=' + report['title'] + '&redirect_to=/moderator/moderator', report['title']) }}</td>
+                    <td class="alignleft">{{ button('grayBg', '/moderator/moderator/view?reportid=' + report['id']|string + '&redirect_to=/moderator/moderator', report['content']) }}</td>
                 </tr>
             {% endfor %}
 

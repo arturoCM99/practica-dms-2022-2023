@@ -11,6 +11,7 @@ info:
     although it is highly recommended in actual production scenarios.
 
     Diseño y Mantenimiento del Software.
+
     Grado en Ingeniería Informática, Universidad de Burgos, 2022-2023.
   contact:
     name: Universidad de Burgos
@@ -277,7 +278,76 @@ paths:
       security:
         - user_token: []
           api_key: []
-  
+  /discussions/reports:
+    get:
+      summary: Get a list of question reports.
+      description: |
+        This operation gets a listing of question reports.
+
+        Several parameters can be used to filter out the reports according to
+        their status.
+      operationId: dms2223backend.presentation.rest.moderate.list_reports
+      parameters:
+        - name: pending
+          description: |
+            Set to `false` to exclude the pending reports from the listing.
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: true
+        - name: accepted
+          description: |
+            Set to `false` to exclude the accepted reports from the listing.
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: true
+        - name: rejected
+          description: |
+            Set to `false` to exclude the rejected reports from the listing.
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: true
+      responses:
+        '200':
+          description: Listing of question reports
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/QuestionReportsListModel'
+              example:
+                - id: 1
+                  qid: 2
+                  reason: Promotes hate speech
+                  status: ACCEPTED
+                  owner:
+                    username: user4
+                  timestamp: 1665922785
+                - id: 2
+                  qid: 4
+                  reason: Not a question
+                  status: REJECTED
+                  owner:
+                    username: user5
+                  timestamp: 1665922785
+                - id: 3
+                  qid: 4
+                  reason: Question is too vague
+                  status: PENDING
+                  owner:
+                    username: user5
+                  timestamp: 1665922785
+      tags:
+        - moderation
+        - questions
+        - reports
+      security:
+        - user_token: []
+          api_key: []
   # /discussions/{qid}/reports:
   #   post:
   #     summary: Reports a question
@@ -461,56 +531,55 @@ paths:
   #     security:
   #       - user_token: []
   #         api_key: []
-  # /answers/{aid}/comments:
-  #   post:
-  #     summary: Comments an answer
-  #     description: |
-  #       This operation creates a comment for an existing answer.
-
-  #       The owner of the comment will be automatically retrieved from the user
-  #       token against the authorization server.
-  #     # operationId: TODO: Set to the fully-qualified name of the function handling the operation
-  #     parameters:
-  #       - $ref: '#/components/parameters/AnswerIdPathParam'
-  #     requestBody:
-  #       content:
-  #         'application/json':
-  #           schema:
-  #             $ref: '#/components/schemas/CommentCreationModel'
-  #           example:
-  #             body: Evaluation criteria may be relaxed due to the tight number of members
-  #             sentiment: POSITIVE
-  #     responses:
-  #       '201':
-  #         description: The created comment.
-  #         content:
-  #           'application/json':
-  #             schema:
-  #               $ref: '#/components/schemas/CommentFullModel'
-  #             example:
-  #               id: 2
-  #               aid: 1
-  #               timestamp: 1665575389
-  #               body: Evaluation criteria may be relaxed due to the tight number of members
-  #               sentiment: POSITIVE
-  #               owner:
-  #                 username: user4
-  #               votes: 0
-  #               user_votes: {}
-  #       '404':
-  #         description: The answer does not exist.
-  #         content:
-  #           'text/plain':
-  #             schema:
-  #               type: string
-  #             example: 'The answer with aid 50 does not exist.'
-  #     tags:
-  #       - discussion
-  #       - answers
-  #       - comments
-  #     security:
-  #       - user_token: []
-  #         api_key: []
+  /answers/{aid}/comments:
+    post:
+      summary: Comments an answer
+      description: |
+        This operation creates a comment for an existing answer.
+        The owner of the comment will be automatically retrieved from the user
+        token against the authorization server.
+      operationId: dms2223backend.presentation.rest.comment.comment
+      parameters:
+        - $ref: '#/components/parameters/AnswerIdPathParam'
+      requestBody:
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/CommentCreationModel'
+            example:
+              body: Evaluation criteria may be relaxed due to the tight number of members
+              sentiment: POSITIVE
+      responses:
+        '201':
+          description: The created comment.
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/CommentFullModel'
+              example:
+                id: 2
+                aid: 1
+                timestamp: 1665575389
+                body: Evaluation criteria may be relaxed due to the tight number of members
+                sentiment: POSITIVE
+                owner:
+                  username: user4
+                votes: 0
+                user_votes: {}
+        '404':
+          description: The answer does not exist.
+          content:
+            'text/plain':
+              schema:
+                type: string
+              example: 'The answer with aid 50 does not exist.'
+      tags:
+        - discussion
+        - answers
+        - comments
+      security:
+        - user_token: []
+          api_key: []
   # /answers/{aid}/reports:
   #   post:
   #     summary: Reports an answer
@@ -902,8 +971,8 @@ components:
         #   additionalProperties:
         #     type: boolean
         
-        #comments:
-        #  $ref: '#/components/schemas/CommentsListModel'
+        comments:
+          $ref: '#/components/schemas/CommentsListModel'
       
       required:
         #- aid
@@ -932,53 +1001,56 @@ components:
     CommentFullModel:
       type: object
       properties:
-        id:
-          type: integer
-        aid:
-          type: integer
-        timestamp:
-          type: number
-        body:
-          type: string
-        sentiment:
-          type: string
-          enum:
-            - POSITIVE
-            - NEUTRAL
-            - NEGATIVE
-        owner:
-          $ref: '#/components/schemas/UserCoreModel'
-        votes:
-          type: integer
-          minimum: 0
-          default: 0
-          nullable: false
-        user_votes:
-          type: object
-          additionalProperties:
-            type: boolean
+        content:
+            type: string
+        # id:
+        #   type: integer
+        # aid:
+        #   type: integer
+        # timestamp:
+        #   type: number
+        # body:
+        #   type: string
+        # sentiment:
+        #   type: string
+        #   enum:
+        #     - POSITIVE
+        #     - NEUTRAL
+        #     - NEGATIVE
+        # owner:
+        #   $ref: '#/components/schemas/UserCoreModel'
+        # votes:
+        #   type: integer
+        #   minimum: 0
+        #   default: 0
+        #   nullable: false
+        # user_votes:
+        #   type: object
+        #   additionalProperties:
+        #     type: boolean
       required:
-        - id
-        - aid
-        - timestamp
         - content
-        - sentiment
-        - owner
+        # - id
+        # - aid
+        # - timestamp
+        # - content
+        # - sentiment
+        # - owner
     CommentCreationModel:
       type: object
       properties:
         content:
           type: string
-        sentiment:
-          type: string
-          enum:
-            - POSITIVE
-            - NEUTRAL
-            - NEGATIVE
-          default: NEUTRAL
+        # sentiment:
+        #   type: string
+        #   enum:
+        #     - POSITIVE
+        #     - NEUTRAL
+        #     - NEGATIVE
+        #   default: NEUTRAL
       required:
         - content
-        - sentiment
+        #- sentiment
     CommentsListModel:
       type: array
       items:
@@ -1191,7 +1263,7 @@ components:
         JWS token sent in the `Authorization` header as bearer.
 
         Contains, among other things, the user doing the requests.
-
+        
         It is intended to be handed to the authorization service to obtain
         useful information, rather than trying to decode it in the backend.
       type: http
@@ -1206,3 +1278,5 @@ components:
       name: X-ApiKey-Backend
       in: header
       x-apikeyInfoFunc: dms2223backend.presentation.rest.security.verify_api_key
+
+

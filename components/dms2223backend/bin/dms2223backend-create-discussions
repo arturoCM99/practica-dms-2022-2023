@@ -3,7 +3,7 @@
 from dms2223common.data import Role
 from sqlalchemy.orm.session import Session
 from dms2223backend.data.config import BackendConfiguration
-from dms2223backend.data.db.resultsets import Discussions, Answers, Comments
+from dms2223backend.data.db.resultsets import Discussions, Answers, Comments, Reports
 from dms2223backend.data.db import Schema
 
 
@@ -14,5 +14,10 @@ db: Schema = Schema(cfg)
 session: Session = db.new_session()
 Discussions.create(session, "Título discusión 1", "Contenido de la discusión 1" )
 Discussions.create(session, "Título discusión 2", "Contenido de la discusión 2" )
-Answers.answer(session, 1, "Respuesta 1")
+Discussions.create(session,"Titulo discusion 3", "Conteido de la discusion 3")
+Answers.answer(session, 1, "Respuesta 1 a discusion 1")
+Answers.answer(session, 1, "Respuesta 2 a discusion 1")
+Answers.answer(session, 1, "Respuesta 1 a discusion 2")
+Reports.create(session,1, "contenido reporte 1")
+Reports.create(session,1, "contenido reporte 2")
 db.remove_session()

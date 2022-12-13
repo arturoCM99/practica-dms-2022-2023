@@ -32,7 +32,7 @@ class ModeratorEndpoints():
         return render_template('moderator.html', name=name, roles=session['roles'])
 
     @staticmethod
-    def get_moderator_reports(auth_service: AuthService) -> Union[Response, Text]:
+    def get_moderator_reports(auth_service: AuthService,backend_service: BackendService) -> Union[Response, Text]:
         """ Handles the GET requests to the reports root endpoint.
 
         Args:
@@ -47,12 +47,12 @@ class ModeratorEndpoints():
             return redirect(url_for('get_home'))
         name = session['user']
 
-        #Reportes de prueba hasta backend
-        reports=[{"title" : "Primer reporte", "content" : "Contenido del primer reporte"}, 
-        {"title" : "Segundo reporte", "content" : "Contenido del segundo reporte"},
-        {"title" : "Tercer reporte", "content" : "Contenido del tercer reporte"}]
+        # #Reportes de prueba hasta backend
+        # reports=[{"title" : "Primer reporte", "content" : "Contenido del primer reporte"}, 
+        # {"title" : "Segundo reporte", "content" : "Contenido del segundo reporte"},
+        # {"title" : "Tercer reporte", "content" : "Contenido del tercer reporte"}]
 
-        return render_template('moderator/reports.html', name=name, roles=session['roles'], reports=reports)
+        return render_template('moderator/reports.html', name=name, roles=session['roles'], reports=WebQuestion.list_reports(backend_service))
 
     @staticmethod
     def get_report_view(auth_service: AuthService) -> Union[Response, Text]:

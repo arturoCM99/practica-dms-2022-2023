@@ -6,7 +6,7 @@ from sqlalchemy import Table, MetaData, Column, String , Integer, TIME, DATE # t
 from sqlalchemy.orm import relationship  # type: ignore
 from dms2223backend.data.db.results.resultbase import ResultBase
 from dms2223backend.data.db.results.answer import Answer
-
+from dms2223backend.data.db.results.report import Report
 
 class Discussion(ResultBase):
     """ Definition and storage of discussion ORM records.
@@ -56,5 +56,6 @@ class Discussion(ResultBase):
             - Dict: A dictionary with the mapping properties.
         """
         return {
-            'discussions': relationship(Answer, backref='discussion')
+            'discussions': relationship(Answer,backref='discussion'),
+            'reports': relationship(Report,backref='discussion')
         }
