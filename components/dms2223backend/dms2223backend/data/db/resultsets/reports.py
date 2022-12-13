@@ -14,7 +14,7 @@ class Reports():
     """ Class responsible of table-level reports operations.
     """
     @staticmethod
-    def create(session: Session, title: str, content: str) -> Report:
+    def create(session: Session, tiporeporte: int,discussionid: int,content: str) -> Report:
         """ Creates a new report record.
 
         Note:
@@ -32,16 +32,16 @@ class Reports():
         Returns:
             - User: The created `report` result.
         """
-        if not title or not content:
-            raise ValueError('A title and a content hash are required.')
+        if not tiporeporte or not content:
+            raise ValueError('A type report and a content hash are required.')
         try:
-            new_report = Report(title, content)
+            new_report = Report(tiporeporte,discussionid,content)
             session.add(new_report)
             session.commit()
             return new_report
         except IntegrityError as ex:
             raise ReportExistsError(
-                'A report with name ' + title + ' already exists.'
+                'A report with name already exists.'
                 ) from ex
 
     @staticmethod

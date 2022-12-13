@@ -54,6 +54,7 @@ class reportsServices():
         for report in reports:
             out.append({
                 'id': report.id,
+                'tipo': report.tipo,
                 'discussionid': report.discussionid,
                 'content': report.content,
             })

@@ -12,7 +12,7 @@ class Report(ResultBase):
     """ Definition and storage of report ORM records.
     """
 
-    def __init__(self, discussionid: int, content: str):
+    def __init__(self, tipo : int,discussionid:int ,content: str):
         """ Constructor method.
 
         Initializes a report record.
@@ -22,10 +22,10 @@ class Report(ResultBase):
             - content (str): A string with the report title.
         """
 
-      
-        self.discussionid: int = discussionid
+    
+        self.tipo: int = tipo
         self.content: str = content
-
+        self.discussionid: int = discussionid
     @staticmethod
     def _table_definition(metadata: MetaData) -> Table:
         """ Gets the table definition.
@@ -42,7 +42,8 @@ class Report(ResultBase):
             metadata,
             Column('id', Integer, autoincrement='auto', primary_key=True),
             Column('content', String(250), nullable=False),
-            Column('discussionid', Integer, ForeignKey('discussions.id'), nullable=False)
+            Column('discussionid', Integer, ForeignKey('discussions.id'), nullable=False),
+            Column('tipo', Integer ,nullable=False), # si vale 1 discusion , si vale 2 respuesta , si vale 3 comentario
             #Column('time', TIME, nullable = False),
             #Column('user', String(15), nullable=False),
             #Column('date', DATE, nullable = False)
