@@ -128,13 +128,8 @@ class BackendService():
         """
         #post para recibir de la discusion adecuada
         response_data: ResponseData = ResponseData()
-        response: requests.Response = requests.post(
-            self.__base_url() + f'/discussions/{id}',
-            json={
-                'discussionid': id,
-                'content': "vacio"
-                
-            },
+        response: requests.Response = requests.get(
+            self.__base_url() + f'/discussions/{id}/answers',
             headers={
                 'Authorization': f'Bearer {token}',
                 self.__apikey_header: self.__apikey_secret

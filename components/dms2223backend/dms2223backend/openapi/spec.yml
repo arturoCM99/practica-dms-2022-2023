@@ -142,7 +142,7 @@ paths:
       summary: Gets the answers for a question
       description: |
         Fetches the full answers for a given question.
-      operationId: dms2223backend.presentation.rest.answer.get_answer
+      operationId: dms2223backend.presentation.rest.answer.list_all_for_discussion
       parameters:
         - $ref: '#/components/parameters/QuestionIdPathParam'
       responses:

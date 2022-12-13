@@ -55,7 +55,7 @@ class AnswersServices():
         """
         out: List[Dict] = []
         session: Session = schema.new_session()
-        answers: List[Answer] = AnswerLogic.list_all(session)
+        answers: List[Answer] = AnswerLogic.list_all_for_discussion(discussionid,session)
         for answer in answers:
             out.append({
                 'id': answer.id, #type: ignore

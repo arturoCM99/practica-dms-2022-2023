@@ -112,9 +112,9 @@ class DiscussionEndpoints():
         name = session['user']
         redirect_to = request.args.get('redirect_to', default='/discussion/discussions')
         id: int = int(str(request.args.get('discussionid')))
-        #answers = WebAnswer.list_answers(backend_service,id)
+        
         return render_template('discussion/discussions/view.html', name=name, roles=session['roles'], redirect_to=redirect_to,
-            discussion=WebQuestion.get_discussion(backend_service, id))
+            discussion=WebQuestion.get_discussion(backend_service, id),answers = WebAnswer.list_answers(backend_service,id))
 
     @staticmethod
     def post_discussion_discussions_view(auth_service: AuthService, backend_service: BackendService) -> Union[Response, Text]:

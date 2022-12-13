@@ -38,7 +38,7 @@ def answer(body: Dict, id: int) -> Tuple[Union[Dict, str], Optional[int]]:
     return (answer, HTTPStatus.OK.value)
 
 
-def list_all_for_discussion(discussionid: int) -> Tuple[Union[List[Dict], str], Optional[int]]:
+def list_all_for_discussion(id: int) -> Tuple[Union[List[Dict], str], Optional[int]]:
     """Lists the answers of a discussion if the requestor has the discussion role.
 
     Args:
@@ -53,7 +53,7 @@ def list_all_for_discussion(discussionid: int) -> Tuple[Union[List[Dict], str], 
     with current_app.app_context():
         try:
             answers: List[Dict] = AnswersServices.list_all_for_discussion(
-                discussionid, current_app.db
+                id, current_app.db
             )
         except ValueError:
             return ('A mandatory argument is missing', HTTPStatus.BAD_REQUEST.value)
