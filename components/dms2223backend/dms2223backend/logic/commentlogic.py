@@ -1,19 +1,17 @@
 """ CommentLogic class module.
 """
 
-from typing import List, Dict
+from typing import List
 from sqlalchemy.orm.session import Session  # type: ignore
-from dms2223backend.data.rest import AuthService
 from dms2223backend.data.db.results import Comment
 from dms2223backend.data.db.resultsets import Comments
-from dms2223backend.logic.exc.operationerror import OperationError
-from dms2223common.data.rest import ResponseData
+
 
 class CommentLogic():
     """ Class responsible of table-level comments operations.
     """
     @staticmethod
-    def comment(auth_service: AuthService, token_info: Dict, session: Session, username: str, answerId: int) -> Comment:
+    def comment(session: Session, answerid: int, content: str) -> Comment:
         """ Comment a comment.
 
         Note:
@@ -31,15 +29,12 @@ class CommentLogic():
         Returns:
             - User: The created `Discussion` result.
         """
-        response : ResponseData = auth_service.auth(session.get('token'), token_info['user_token']['user'], "Answer")
-
-        if response.is_sucessful() == False:
-            raise OperationError
         try:
-            new_comment: Comment = Comments.comment(session, username, answerId)
+            new_comment: Comment = Comments.comment(session, answerid, content)
+           
         except Exception as ex:
             raise ex
-            return new_comment
+        return new_comment
 
     @staticmethod
     def list_all(session: Session) -> List[Comment]:
@@ -51,5 +46,23 @@ class CommentLogic():
         Returns:
             - List[Comment]: A list of `Comment` registers.
         """
-        query = session.query(Comment)
-        return query.all()
+
+        return Comments.list_all(session)
+
+    @staticmethod
+    def get_comment(session: Session ,answerid: int) -> Comment:
+        """Return a answer of a certain question and user.
+
+        Args:
+            - session (Session): The session object.
+            - user (str): The user name string.
+            - id (int): The question id.
+
+        Returns:
+            - Answer: The Answer of the question.
+        """
+        try:
+            answer: Comment = Comments.get_answer(session, answerid)
+        except Exception as ex:
+            raise ex
+        return answer

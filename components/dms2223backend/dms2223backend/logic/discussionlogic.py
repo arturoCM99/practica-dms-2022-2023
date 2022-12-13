@@ -54,14 +54,14 @@ class DiscussionLogic():
         discussions = Discussions.list_all(session)
         list_of_discussions : List[List] = []
         for discussion in discussions:
-            if (Answers.discussion_has_answers(session, discussion.id)):     # type: ignore
+            if (Answers.discussion_has_answers(session, discussion.id)): #type: ignore
                 list_of_discussions.append([discussion,1])
             else:
                 list_of_discussions.append([discussion,0])
         return list_of_discussions
 
     @staticmethod
-    def get_discussion_by_id(session: Session, id: int,) -> Optional[Discussion]:
+    def get_discussion_by_id(session: Session, id: int,) -> List:
         """Obtains a discussion by an id.
         Args:
             - session (Session): The session object.
@@ -70,11 +70,15 @@ class DiscussionLogic():
         Returns:
             - Optional[Discussion]: The result of the `Discussion`.
         """
-
+        list_of_discussions = []
         try:
             discussion = Discussions.get_discussion_by_id(session, id)
+            if (Answers.discussion_has_answers(session, id)):
+                list_of_discussions.append([discussion, 1])
+            else:
+                list_of_discussions.append([discussion, 0])
         except Exception as ex:
             raise ex
-        return discussion
+        return list_of_discussions
 
     

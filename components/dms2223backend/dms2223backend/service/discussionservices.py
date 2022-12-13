@@ -25,18 +25,26 @@ class DiscussionsServices():
         """
       
         session: Session = schema.new_session()
-        out: Dict = {}
+        out:  List[Dict] = []
         try:
-            discussion = DiscussionLogic.get_discussion_by_id(session, id)
+            discussions = DiscussionLogic.get_discussion_by_id(session, id)
+            discussion: Discussion = discussions[0][0]
+            answered: int = discussions[0][1]
             if discussion is not None:
-                out['id'] = discussion.id
-                out['title'] = discussion.title      
-                out['content'] = discussion.content
+                out.append({
+                'id': discussion.id,#type: ignore
+                'title': discussion.title,
+                'content': discussion.content,
+                'answered': answered})
+
         except Exception as ex:
             raise ex
         finally:
             schema.remove_session()
-        return out
+        salida : Dict = {}
+        for sal in out:
+            salida = sal
+        return salida
 
     @staticmethod
     def list_discussions(schema: Schema) -> List[Dict]:
@@ -55,7 +63,7 @@ class DiscussionsServices():
             discussion: Discussion = discuss[0]
             answered: int = discuss[1]
             out.append({
-                'id': discussion.id,
+                'id': discussion.id,#type: ignore
                 'title': discussion.title,
                 'content': discussion.content,
                 'answered': answered
@@ -80,7 +88,7 @@ class DiscussionsServices():
         try:
             new_discussion: Discussion = DiscussionLogic.create(session, title, content)
             
-            out['id'] = new_discussion.id
+            out['id'] = new_discussion.id#type: ignore
             out['title'] = new_discussion.title
             out['content'] = new_discussion.content
 

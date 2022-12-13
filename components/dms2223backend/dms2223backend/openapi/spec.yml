@@ -278,6 +278,7 @@ paths:
       security:
         - user_token: []
           api_key: []
+
   /discussions/reports:
     get:
       summary: Get a list of question reports.
@@ -973,6 +974,7 @@ components:
         
         comments:
           $ref: '#/components/schemas/CommentsListModel'
+
       
       required:
         #- aid
@@ -1028,8 +1030,41 @@ components:
         #   type: object
         #   additionalProperties:
         #     type: boolean
+        # content:
+        #     type: string
+        # id:
+        #   type: integer
+        # aid:
+        #   type: integer
+        # timestamp:
+        #   type: number
+        # body:
+        #   type: string
+        # sentiment:
+        #   type: string
+        #   enum:
+        #     - POSITIVE
+        #     - NEUTRAL
+        #     - NEGATIVE
+        # owner:
+        #   $ref: '#/components/schemas/UserCoreModel'
+        # votes:
+        #   type: integer
+        #   minimum: 0
+        #   default: 0
+        #   nullable: false
+        # user_votes:
+        #   type: object
+        #   additionalProperties:
+        #     type: boolean
       required:
         - content
+        # - id
+        # - aid
+        # - timestamp
+        # - content
+        # - sentiment
+        # - owner
         # - id
         # - aid
         # - timestamp
@@ -1048,8 +1083,16 @@ components:
         #     - NEUTRAL
         #     - NEGATIVE
         #   default: NEUTRAL
+        # sentiment:
+        #   type: string
+        #   enum:
+        #     - POSITIVE
+        #     - NEUTRAL
+        #     - NEGATIVE
+        #   default: NEUTRAL
       required:
         - content
+        #- sentiment
         #- sentiment
     CommentsListModel:
       type: array

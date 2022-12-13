@@ -30,7 +30,7 @@ def verify_api_key(token: str) -> Dict:
 
 
 
-def verify_token(token: str) -> Dict:
+def verify_token(token: str) -> bool:
     """Callback testing a JWS user token.
 
     Args:

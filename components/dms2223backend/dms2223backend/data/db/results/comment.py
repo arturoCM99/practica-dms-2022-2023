@@ -1,16 +1,14 @@
 """Comment Class Module
 """
 
-from typing import Dict
 from sqlalchemy import Table, MetaData, Column, String , Integer, ForeignKey # type: ignore
-from sqlalchemy.orm import relationship  # type: ignore
 from dms2223backend.data.db.results.resultbase import ResultBase
 
 class Comment(ResultBase):
     """ Definition and storage of comment ORM records.
     """
 
-    def __init__(self, content: str, id: int):
+    def __init__(self, answerid: int,content: str):
         """ Constructor method.
 
         Initializes a comment record.
@@ -20,8 +18,9 @@ class Comment(ResultBase):
             - id (int): A int with the answer's id.
 
         """
+
+        self.answerid: int = answerid
         self.content: str = content
-        self.id: str = id
 
 
     @staticmethod
@@ -40,7 +39,5 @@ class Comment(ResultBase):
             metadata,
             Column('id', Integer, autoincrement='auto', primary_key=True),
             Column('answerid', Integer, ForeignKey('answers.id'), nullable=False),
-            Column('content', String(250))
+            Column('content', String(250), nullable=False)
         )
-
-    
