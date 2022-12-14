@@ -1,7 +1,6 @@
 """ Comments class module.
 """
 
-
 from typing import List
 from sqlalchemy.exc import IntegrityError  # type: ignore
 from sqlalchemy.orm.session import Session  # type: ignore
@@ -39,10 +38,9 @@ class Comments():
             return new_comment
         except IntegrityError as ex:
             raise DiscussionNotFoundError(
-                'A discussion with id ' + str(answerid) + ' not exists.'
+                'An answer with id ' + str(answerid) + ' not exists.'
                 ) from ex
-
-
+                
     @staticmethod
     def list_all(session: Session) -> List[Comment]:
         """Lists every comment.
@@ -59,7 +57,7 @@ class Comments():
     @staticmethod
     def answer_has_comments(session: Session, answerid: int) -> bool:
         if not answerid:
-            raise ValueError('A discussion id is required.')
+            raise ValueError('An answer id is required.')
         answers = Comments.list_all_for_answer(session, answerid)
 
         return len(answers) != 0
@@ -79,12 +77,12 @@ class Comments():
             - List[Answer]: A list of answer registers with the question answers.
         """
         if not answerid:
-            raise ValueError('A discussion id is required')
+            raise ValueError('An answer id is required')
         query = session.query(Comment).filter_by(answerid=answerid)
         return query.all()
-
+        
     @staticmethod
-    def get_answer(session: Session, answerid: int) -> Comment:
+    def get_comment(session: Session, answerid: int) -> Comment:
         """Return a answer of a certain question and user.
 
         Args:
@@ -104,3 +102,4 @@ class Comments():
             answerid=answerid
         )
         return query.all()
+        

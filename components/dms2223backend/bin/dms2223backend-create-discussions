@@ -15,9 +15,16 @@ session: Session = db.new_session()
 Discussions.create(session, "Título discusión 1", "Contenido de la discusión 1" )
 Discussions.create(session, "Título discusión 2", "Contenido de la discusión 2" )
 Discussions.create(session,"Titulo discusion 3", "Conteido de la discusion 3")
+
 Answers.answer(session, 1, "Respuesta 1 a discusion 1")
 Answers.answer(session, 1, "Respuesta 2 a discusion 1")
-Answers.answer(session, 1, "Respuesta 1 a discusion 2")
+Answers.answer(session, 2, "Respuesta 1 a discusion 2")
+
+Comments.comment(session, 1, "Comentario 1 a respuesta 1")
+Comments.comment(session, 1, "Comentario 2 a respuesta 1")
+Comments.comment(session, 2, "Comentario 1 a respuesta 2")
+
+
 Reports.create(session,1,1, "Este es un reporte a un titulo")
 Reports.create(session,2,1, "Este es un reporte a una respuesta")
 Reports.create(session,3,1, "Este es un reporte a un comentario")

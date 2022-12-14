@@ -44,8 +44,8 @@ class Answer(ResultBase):
             metadata,
             Column('id', Integer, autoincrement='auto', primary_key=True),
             Column('discussionid', Integer, ForeignKey('discussions.id'), nullable=False),
-            # Column('user', String, nullable=False),
             Column('content', String(250), nullable=False)
+            # Column('user', String, nullable=False),
             # Column('time', TIME, nullable = False),
             # Column('date', DATE, nullable = False)
         )
@@ -60,6 +60,3 @@ class Answer(ResultBase):
         return {
             'answers': relationship(Comment, backref='answer')
         }
-
-
-    
