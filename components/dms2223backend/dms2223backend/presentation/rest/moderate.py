@@ -35,8 +35,9 @@ def create_report(body: Dict) -> Tuple[Union[Dict, str], Optional[int]]:
     """
     with current_app.app_context():
         try:
+            title = "algo"
             report: Dict = reportsServices.create_report(
-                body['title'], body['content'],current_app.db
+                body['tiporeport'],title,body['content'],current_app.db
             )
         except ValueError:
             return ('A mandatory argument is missing', HTTPStatus.BAD_REQUEST.value)

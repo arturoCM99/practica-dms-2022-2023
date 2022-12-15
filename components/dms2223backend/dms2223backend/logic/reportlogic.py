@@ -15,7 +15,7 @@ class ReportLogic():
     """ Class with logic-level operations with the discussion-related use cases.
     """
     @staticmethod
-    def create(session: Session, title: str, content: str) -> Report:
+    def create(session: Session,tipo: int, title: str, content: str) -> Report:
         """ Creates a new report record.
 
         Note:
@@ -35,7 +35,7 @@ class ReportLogic():
         """
         
         try:
-            new_report: Report = Reports.create(session, title, content)
+            new_report: Report = Reports.create(session,tipo, title, content)
            
         except Exception as ex:
             raise ex

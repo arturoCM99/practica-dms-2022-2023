@@ -17,8 +17,7 @@
             {{ button('bluebg', '/discussion/discussions/answer?discussionid=' + discussion['id']|string +
             '&redirect_to=/discussion/discussions/view?discussionid=' + discussion['id']|string, 'Crear nueva respuesta') }} 
             
-            {{ button('redbg', '/discussion/discussions/report?discussionid=' + discussion['id']|string +
-            '&redirect_to=/discussion/discussions/view?discussionid=' + discussion['id']|string, 'Reportar pregunta') }}</p>
+            {{ button('redbg', '/discussion/discussions/report?discussionid=' + discussion['id']|string +'&redirect_to=/discussion/discussions/view?discussionid=' + discussion['id']|string, 'Reportar pregunta') }}</p>
             
             {%if discussion['answered'] == 1 %}
             {% for answer in answers %}
@@ -31,8 +30,7 @@
                 </p>
                 <p class="alignleft">{{ button('bluebg', '/discussion/discussions/comment?answerid=' + discussion['id']|string +
                     '&redirect_to=/discussion/discussions/view?discussionid=' + discussion['id']|string, 'Crear nuevo comentario') }} 
-                    {{ button('redbg', '/discussion/discussions/report?discussionid=' + discussion['id']|string +
-                    '&redirect_to=/discussion/discussions/view?discussionid=' + discussion['id']|string, 'Reportar respuesta') }}</p>
+                    {{ button('redbg', '/discussion/discussions/reportanswer?answerid=' + answer['id']|string +'&redirect_to=/discussion/discussions/view?discussionid=' + discussion['id']|string, 'Reportar respuesta') }}</p>
                 </p>           
             {% endfor %}
 

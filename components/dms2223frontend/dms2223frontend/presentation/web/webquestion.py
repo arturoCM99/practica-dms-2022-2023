@@ -28,6 +28,23 @@ class WebQuestion():
         return []
 
     @staticmethod
+    def create_report(backend_service: BackendService,iddiscussion: int,tiporeport :int,content: str) -> Optional[Dict]:
+        """ Creates a discussion in the backend service.
+
+        Args:
+            - backendservice (BackendService): The backend service.
+            - title (str): The title of the discussion to be created.
+            - content (str): The content of the discussion to be created.
+
+        Returns:
+            - Dict: A dictionary with the newly created user if successful.
+            - None: Nothing on error.
+        """
+        response: ResponseData = backend_service.create_report(session.get('token'),iddiscussion,tiporeport,  content)
+        WebUtils.flash_response_messages(response)
+        return response.get_content()
+
+    @staticmethod
     def create_discussion(backend_service: BackendService, title: str, content: str) -> Optional[Dict]:
         """ Creates a discussion in the backend service.
 

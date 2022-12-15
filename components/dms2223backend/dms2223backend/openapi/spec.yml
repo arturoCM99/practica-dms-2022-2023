@@ -136,6 +136,7 @@ paths:
       security:
         - user_token: []
           api_key: []
+
   
   /discussions/{id}/answers:
     get:
@@ -349,54 +350,56 @@ paths:
       security:
         - user_token: []
           api_key: []
-  # /discussions/{qid}/reports:
-  #   post:
-  #     summary: Reports a question
-  #     description: |
-  #       This operation will report a question to be reviewed by a moderator.
+          
+  /discussions/{qid}/reports:
+    post:
+      summary: Reports a question
+      description: |
+        This operation will report a question to be reviewed by a moderator.
 
-  #       The owner of the report will be automatically retrieved from the
-  #       user token against the authorization server.
-  #     # operationId: TODO: Set to the fully-qualified name of the function handling the operation
-  #     parameters:
-  #       - $ref: '#/components/parameters/QuestionIdPathParam'
-  #     requestBody:
-  #       content:
-  #         'application/json':
-  #           schema:
-  #             $ref: '#/components/schemas/QuestionReportCreationModel'
-  #           example:
-  #             reason: Promotes hate speech
-  #     responses:
-  #       '201':
-  #         description: The created report.
-  #         content:
-  #           'application/json':
-  #             schema:
-  #               $ref: '#/components/schemas/QuestionReportFullModel'
-  #             example:
-  #               id: 1
-  #               qid: 2
-  #               reason: Promotes hate speech
-  #               status: PENDING
-  #               owner:
-  #                 username: user4
-  #               timestamp: 1665922785
-  #       '404':
-  #         description: The question does not exist.
-  #         content:
-  #           'text/plain':
-  #             schema:
-  #               type: string
-  #             example: 'The question with qid 5 does not exist.'
-  #     tags:
-  #       - discussion
-  #       - moderation
-  #       - questions
-  #       - reports
-  #     security:
-  #       - user_token: []
-  #         api_key: []
+        The owner of the report will be automatically retrieved from the
+        user token against the authorization server.
+      operationId: dms2223backend.presentation.rest.moderate.create_report
+      parameters:
+        - $ref: '#/components/parameters/QuestionIdPathParam'
+      requestBody:
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/QuestionReportCreationModel'
+            example:
+              reason: Promotes hate speech
+      responses:
+        '201':
+          description: The created report.
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/QuestionReportFullModel'
+              example:
+                id: 1
+                qid: 2
+                reason: Promotes hate speech
+                status: PENDING
+                owner:
+                  username: user4
+                timestamp: 1665922785
+        '404':
+          description: The question does not exist.
+          content:
+            'text/plain':
+              schema:
+                type: string
+              example: 'The question with qid 5 does not exist.'
+      tags:
+        - discussion
+        - moderation
+        - questions
+        - reports
+      security:
+        - user_token: []
+          api_key: []
+          
   # /discussions/reports:
   #   get:
   #     summary: Get a list of question reports.
@@ -934,7 +937,7 @@ components:
           type: string
           
       required:
-        - title
+        #- title SIFALLACAMBIAR ARTURO
         - content
     QuestionsListModel:
       type: array

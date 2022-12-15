@@ -7,9 +7,17 @@
         <tbody>
 
 
+            {% for report in reports %}
+            <tr class="highlightable">
+                <td class="alignleft">{{ button('grayBg', '/moderator/moderator/view?reporttipo=' + report['tipo']|string + '&redirect_to=/moderator/moderator', report['content']) }}</td> 
+            </tr>
+            {% endfor %}
+
             <tr>
                 <th class="alignleft">Reportes de discusiones</th><th></th>
             </tr>
+
+
             {% for report in reports %}
                 {% if report ['tipo'] == 1 %}
                 <tr class="highlightable">

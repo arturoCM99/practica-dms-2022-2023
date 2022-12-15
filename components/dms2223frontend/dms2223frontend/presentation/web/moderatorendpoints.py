@@ -71,7 +71,7 @@ class ModeratorEndpoints():
         name = session['user']
         title: str = str(request.args.get('reporttitle'))
         redirect_to = request.args.get('redirect_to', default='/moderator/reports')
-        return render_template('moderator/moderator/view.html', name=name, roles=session['roles'], redirect_to=redirect_to, title=title, )
+        return render_template('moderator/moderator/view.html', name=name, roles=session['roles'], redirect_to=redirect_to, title=title,)
 
     @staticmethod
     def get_moderator_discussions(auth_service: AuthService, backend_services: BackendService) -> Union[Response, Text]:

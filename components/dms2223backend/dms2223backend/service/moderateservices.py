@@ -62,7 +62,7 @@ class reportsServices():
         return out
 
     @staticmethod
-    def create_report(title:str, content: str, schema: Schema) -> Dict:
+    def create_report(tiporeport:int,title:str, content: str, schema: Schema) -> Dict:
         """Creates a report.
 
         Args:
@@ -76,10 +76,10 @@ class reportsServices():
         session: Session = schema.new_session()
         out: Dict = {}
         try:
-            new_report: Report = ReportLogic.create(session, title, content)
-            
-            out['id'] = new_report.id
-            out['title'] = new_report.title
+            new_report: Report = ReportLogic.create(tiporeport,session, title, content)
+            out['tiporeport'] = new_report.tipo
+            out['id'] = new_report.id#type: ignore
+            out['title'] = new_report.title#type: ignore
             out['content'] = new_report.content
 
         except Exception as ex:
