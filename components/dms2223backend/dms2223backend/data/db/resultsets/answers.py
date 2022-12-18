@@ -100,13 +100,9 @@ class Answers():
         Returns:
             - Answer: Answer of the question.
         """
-
-
         if not answerid:
-            raise ValueError('An id is requiered.')
-        try:
-            query = session.query(Answer).filter_by(answerid=answerid)
-            answer: Answer = query.one()
-        except NoResultFound:
-            return None
-        return answer
+            raise ValueError('All fields are required.')
+        query = session.query(Answer).filter_by(
+            answerid=answerid
+        )
+        return query.all()
