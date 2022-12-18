@@ -38,6 +38,7 @@ class CommentsServices():
             schema.remove_session()
         return out
 
+
     @staticmethod
     def list_all_for_answer(answerid: int, schema: Schema) -> List[Dict]:
         """Lists the comments of a discussion if the requestor has the discussion role.
@@ -51,7 +52,7 @@ class CommentsServices():
         """
         out: List[Dict] = []
         session: Session = schema.new_session()
-        comments: List[Comment] = CommentLogic.list_all(session)
+        comments: List[Comment] = CommentLogic.list_all_for_answer(answerid, session)
         for comment in comments:
             out.append({
                 'id': comment.id, #type: ignore

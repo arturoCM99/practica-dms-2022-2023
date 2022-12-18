@@ -7,8 +7,9 @@
     <input type="hidden" name="redirect_to" value="{{ redirect_to }}" />
     
     <dl>
-        <!--{{ discussion }}
-        {{   answers  }}-->
+        {{ discussion }}
+        {{ answers }}
+        {{ comments }}
 
         <h3><dt>{{ discussion['title'] }}</dt></h3>
 
@@ -20,37 +21,37 @@
             {{ button('redbg', '/discussion/discussions/report?discussionid=' + discussion['id']|string +'&redirect_to=/discussion/discussions/view?discussionid=' + discussion['id']|string, 'Reportar pregunta') }}</p>
             
             {%if discussion['answered'] == 1 %}
-            {% for answer in answers %}
-                <h3><dt>Respuesta</dt></h3>
-                <textarea name="content" rows="10" cols="100" readonly> {{ answer['content'] }} </textarea>
-                <p class="alignleft">
-                    <button name="button"><img class="button-img" src="https://img.icons8.com/ios-filled/512/good-quality.png" height = "20" width = "20"></button>
-                    <button name="button"><img class="button-img" src="https://img.icons8.com/material-rounded/512/horizontal-line.png" height = "20" width = "20"></button>
-                    <button name="button"><img class="button-img" src="https://img.icons8.com/ios-filled/512/poor-quality.png" height = "20" width = "20"></button>
-                </p>
-                <p class="alignleft">{{ button('bluebg', '/discussion/discussions/comment?answerid=' + discussion['id']|string +
-                    '&redirect_to=/discussion/discussions/view?discussionid=' + discussion['id']|string, 'Crear nuevo comentario') }} 
-                    {{ button('redbg', '/discussion/discussions/reportanswer?answerid=' + answer['id']|string +'&redirect_to=/discussion/discussions/view?discussionid=' + discussion['id']|string, 'Reportar respuesta') }}</p>
-                </p>           
-            {% endfor %}
-
-
-                <h3><dt>Comentario</dt></h3> <h6>@Usuario 15/11/2022 20:40</h6>
-                <textarea name="content" rows="10" cols="100" readonly> Este es el comentario de la respuesta </textarea>
-                <p class="alignleft"></p>
-                <button name="button">
-                    <img class="button-img" src="https://img.icons8.com/ios-filled/512/good-quality.png" height = "20" width = "20">
-                </button>
-                <button name="button">
-                    <img class="button-img" src="https://img.icons8.com/material-rounded/512/horizontal-line.png" height = "20" width = "20">
-                </button>
-                <button name="button">
-                    <img class="button-img" src="https://img.icons8.com/ios-filled/512/poor-quality.png" height = "20" width = "20">
-                </button>
+                {% for answer in answers %}
+                    
+                    <h3><dt>Respuesta</dt></h3>
+                    <textarea name="content" rows="10" cols="100" readonly> {{ answer['content'] }} </textarea>
+                    <p class="alignleft">
+                        <button name="button"><img class="button-img" src="https://img.icons8.com/ios-filled/512/good-quality.png" height = "20" width = "20"></button>
+                        <button name="button"><img class="button-img" src="https://img.icons8.com/material-rounded/512/horizontal-line.png" height = "20" width = "20"></button>
+                        <button name="button"><img class="button-img" src="https://img.icons8.com/ios-filled/512/poor-quality.png" height = "20" width = "20"></button>
+                    </p>
+                    <p class="alignleft">{{ button('bluebg', '/discussion/discussions/comment?discussionid=' + discussion['id']|string + '&answerid=' + answer['id']|string +
+                        '&redirect_to=/discussion/discussions/view?discussionid=' + discussion['id']|string, 'Crear nuevo comentario') }} 
+                        {{ button('redbg', '/discussion/discussions/reportanswer?answerid=' + answer['id']|string +'&redirect_to=/discussion/discussions/view?discussionid=' + discussion['id']|string, 'Reportar respuesta') }}</p>
+                    </p>           
                 
-                <p class="alignleft">{{ button('redbg', '/discussion/discussions/report?discussionid=' + discussion['id']|string +
-                    '&redirect_to=/discussion/discussions/view?discussionid=' + discussion['id']|string, 'Reportar comentario') }}</p>
 
+                    {%for comment in comments%}
+                        {%if answer['id'] == comment['answerid']%}
+                            {{ comment }}
+                            <h3><dt>Comentario</dt></h3>
+                            <textarea name="content" rows="10" cols="100" readonly>{{ comment['content'] }}</textarea>
+                            <p class="alignleft"></p>
+                            <button name="button">
+                                <img class="button-img" src="https://img.icons8.com/ios-filled/512/good-quality.png" height = "20" width = "20"></button>
+                            <button name="button"><img class="button-img" src="https://img.icons8.com/material-rounded/512/horizontal-line.png" height = "20" width = "20"></button>
+                            <button name="button"><img class="button-img" src="https://img.icons8.com/ios-filled/512/poor-quality.png" height = "20" width = "20"></button>
+                            
+                            <p class="alignleft">{{ button('redbg', '/discussion/discussions/report?discussionid=' + discussion['id']|string +
+                                '&redirect_to=/discussion/discussions/view?discussionid=' + discussion['id']|string, 'Reportar comentario') }}</p>
+                        {%endif%}
+                    {%endfor%}
+                {%endfor%}
             {%endif%}
         
         </p>

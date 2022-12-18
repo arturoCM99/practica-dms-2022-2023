@@ -5,8 +5,6 @@ from typing import List
 from sqlalchemy.orm.session import Session  # type: ignore
 from dms2223backend.data.db.results import Comment
 from dms2223backend.data.db.resultsets import Comments
-
-
 class CommentLogic():
     """ Class responsible of table-level comments operations.
     """
@@ -50,6 +48,22 @@ class CommentLogic():
         return Comments.list_all(session)
 
     @staticmethod
+    def list_all_for_answer(answerid: int, session: Session) -> List[Comment]:
+        """Lists the `answers made to a certain question.
+
+        Args:
+            - session (Session): The session object.
+            - id (int): The question id.
+
+        Raises:
+            - ValueError: If the question id is missing.
+
+        Returns:
+            - List[Answer]: A list of answer registers with the question answers.
+        """
+        return Comments.list_all_for_answer(session, answerid)
+
+    @staticmethod
     def get_comment(session: Session ,answerid: int) -> Comment:
         """Return a answer of a certain question and user.
 
@@ -62,7 +76,9 @@ class CommentLogic():
             - Answer: The Answer of the question.
         """
         try:
-            answer: Comment = Comments.get_answer(session, answerid)
+            comment: Comment = Comments.get_comment(session, answerid)
         except Exception as ex:
             raise ex
-        return answer
+        return comment
+
+    

@@ -8,9 +8,7 @@ from dms2223backend.data.db.exc import DiscussionNotFoundError
 from dms2223backend.logic.exc.operationerror import OperationError
 from dms2223backend.service import CommentsServices
 
-
-
-def comment(body: Dict) -> Tuple[Union[Dict, str], Optional[int]]:
+def comment(body: Dict, id: int) -> Tuple[Union[Dict, str], Optional[int]]:
     """Comments a discussion if the requestor has the discussion role.
 
     Args:
@@ -26,8 +24,8 @@ def comment(body: Dict) -> Tuple[Union[Dict, str], Optional[int]]:
     """
     with current_app.app_context():
         try:
-            answer = CommentsServices.comment(
-                body['discussionid'], body['content'], current_app.db
+            comment = CommentsServices.comment(
+                id, body['content'], current_app.db
             )
         except ValueError:
             return ('A mandatory argument is missing', HTTPStatus.BAD_REQUEST.value)
@@ -35,10 +33,10 @@ def comment(body: Dict) -> Tuple[Union[Dict, str], Optional[int]]:
             return('User does not exist', HTTPStatus.NOT_FOUND.value)
         except OperationError:
             return ('The user with the given username can not create a discussion', HTTPStatus.FORBIDDEN.value)
-    return (answer, HTTPStatus.OK.value)
+    return (comment, HTTPStatus.OK.value)
 
 
-def list_all_for_answer(answerid: int) -> Tuple[Union[List[Dict], str], Optional[int]]:
+def list_all_for_answer(id: int) -> Tuple[Union[List[Dict], str], Optional[int]]:
     """Lists the comments of an answer if the requestor has the discussion role.
 
     Args:
@@ -53,7 +51,7 @@ def list_all_for_answer(answerid: int) -> Tuple[Union[List[Dict], str], Optional
     with current_app.app_context():
         try:
             comments: List[Dict] = CommentsServices.list_all_for_answer(
-                answerid, current_app.db
+                id, current_app.db
             )
         except ValueError:
             return ('A mandatory argument is missing', HTTPStatus.BAD_REQUEST.value)
@@ -75,10 +73,10 @@ def get_comment(answerid: int) -> Tuple[Union[Dict, str], Optional[int]]:
     """
     with current_app.app_context():
         try:
-            answer: Dict = CommentsServices.get_comment(
+            comment: Dict = CommentsServices.get_comment(
                 answerid,current_app.db
             )
         except ValueError:
             return ('A mandatory argument is missing', HTTPStatus.BAD_REQUEST.value)
 
-    return (answer, HTTPStatus.OK.value)
+    return (comment, HTTPStatus.OK.value)

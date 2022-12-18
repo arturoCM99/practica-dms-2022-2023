@@ -43,3 +43,9 @@ class WebComment():
         response: ResponseData = backend_service.create_comment(session.get('token'), answerid, content)
         WebUtils.flash_response_messages(response)
         return response.get_content()
+
+    @staticmethod
+    def get_comment(backend_service: BackendService, id: int) -> Optional[Dict]:
+        response: ResponseData = backend_service.get_comment(session.get('token'), id)
+        WebUtils.flash_response_messages(response)
+        return response.get_content()

@@ -4,7 +4,7 @@
 from typing import List
 from sqlalchemy.orm.session import Session  # type: ignore
 from dms2223backend.data.db.results import Answer
-from dms2223backend.data.db.resultsets import Answers
+from dms2223backend.data.db.resultsets import Answers, Comments
 
 
 
@@ -40,7 +40,7 @@ class AnswerLogic():
         return new_answer
 
     @staticmethod
-    def list_all(session: Session) -> List[Answer]:
+    def list_all(session: Session) -> List[List]:
         """Lists every answer.
 
         Args:
@@ -50,6 +50,14 @@ class AnswerLogic():
             - List[List]: A list of `Discussion` registers.
         """
         return Answers.list_all(session)
+        # answers = Answers.list_all(session)
+        # list_of_answers : List[List] = []
+        # for answer in answers:
+        #     if (Comments.answer_has_comments(session, discussion.id)): #type: ignore
+        #         list_of_answers.append([answer,1])
+        #     else:
+        #         list_of_answers.append([answer,0])
+        # return list_of_answers
     
     @staticmethod
     def list_all_for_discussion(discussionid: int, session: Session) -> List[Answer]:
@@ -84,3 +92,14 @@ class AnswerLogic():
         except Exception as ex:
             raise ex
         return answer
+
+        # list_of_answers = []
+        # try:
+        #     answer: Answer = Answers.get_answer(session, discussionid)
+        #     if (Comments.answer_has_comments(session, discussionid)):
+        #         list_of_answers.append([answer, 1])
+        #     else:
+        #         list_of_answers.append([answer, 0])
+        # except Exception as ex:
+        #     raise ex
+        # return list_of_answers

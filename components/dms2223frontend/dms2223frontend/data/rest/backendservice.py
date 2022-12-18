@@ -94,7 +94,6 @@ class BackendService():
         else:
             response_data.add_message(response.content.decode('ascii'))
         return response_data
-
     
     def create_discussion(self, token: Optional[str], title: str, content: str) -> ResponseData:
         """ Requests a discussion creation.
@@ -207,7 +206,22 @@ class BackendService():
             response_data.add_message(response.content.decode('ascii'))
         return response_data
 
-   
+    def get_answer(self, token:  Optional[str], answerid: int) -> ResponseData:
+        response_data: ResponseData = ResponseData()
+        response: requests.Response = requests.get(
+            self.__base_url() + f'/discussions/{answerid}/answers',
+            headers={
+                'Authorization': f'Bearer {token}',
+                self.__apikey_header: self.__apikey_secret
+            }
+        )
+        response_data.set_successful(response.ok)
+        if response_data.is_successful():
+            response_data.set_content(response.json())
+        else:
+            response_data.add_message(response.content.decode('ascii'))
+            response_data.set_content([])
+        return response_data
 
     def list_comments(self, token: Optional[str], id: int) -> ResponseData:
         """ Requests a list of registered questions.
@@ -219,14 +233,10 @@ class BackendService():
             - ResponseData: If successful, the contents hold a list of user data dictionaries.
               Otherwise, the contents will be an empty list.
         """
+
         response_data: ResponseData = ResponseData()
-        response: requests.Response = requests.post(
-            self.__base_url() + f'/discussions/{id}',
-            json={
-                'answerid': id,
-                'content': "vacio"
-                
-            },
+        response: requests.Response = requests.get(
+            self.__base_url() + f'/answers/{id}/comments', 
             headers={
                 'Authorization': f'Bearer {token}',
                 self.__apikey_header: self.__apikey_secret
@@ -256,7 +266,7 @@ class BackendService():
         """
         response_data: ResponseData = ResponseData()
         response: requests.Response = requests.post(
-            self.__base_url() + f'/answers/{answerid}/comments',
+            self.__base_url() + f'/answers/{answerid}/comments', 
             json={
                 'answerid': answerid,
                 'content': content
@@ -273,67 +283,25 @@ class BackendService():
             response_data.add_message(response.content.decode('ascii'))
         return response_data
 
-   
-
-    def list_comments(self, token: Optional[str], id: int) -> ResponseData:
-        """ Requests a list of registered questions.
-        Args:
-            token (Optional[str]): The question session token.
-        Returns:
-            - ResponseData: If successful, the contents hold a list of user data dictionaries.
-              Otherwise, the contents will be an empty list.
-        """
-        response_data: ResponseData = ResponseData()
-        response: requests.Response = requests.post(
-            self.__base_url() + f'/discussions/{id}',
-            json={
-                'answerid': id,
-                'content': "vacio"
-                
-            },
-            headers={
-                'Authorization': f'Bearer {token}',
-                self.__apikey_header: self.__apikey_secret
-            }
-        )
-        response_data.set_successful(response.ok)
-        if response_data.is_successful():
-            response_data.set_content(response.json())
-        else:
-            response_data.add_message(response.content.decode('ascii'))
-            response_data.set_content([])
-        return response_data
+    def get_comment(self, token:  Optional[str], id: int) -> ResponseData:
+            response_data: ResponseData = ResponseData()
+            response: requests.Response = requests.get(
+                self.__base_url() + f'/answers/{id}/comments',
+                headers={
+                    'Authorization': f'Bearer {token}',
+                    self.__apikey_header: self.__apikey_secret
+                }
+            )
+            response_data.set_successful(response.ok)
+            if response_data.is_successful():
+                response_data.set_content(response.json())
+            else:
+                response_data.add_message(response.content.decode('ascii'))
+                response_data.set_content([])
+            return response_data
 
 
-    
-    def create_comment(self, token: Optional[str], answerid: int, content: str) -> ResponseData:
-        """ Requests a discussion creation.
-        Args:
-            - token (Optional[str]): The discussion session token.
-            - title: A string with the discussion title.
-            - content: A string with the discussion content.
-        Returns:
-            - ResponseData: If successful, the contents hold a list of user data dictionaries.
-              Otherwise, the contents will be an empty list.
-        """
-        response_data: ResponseData = ResponseData()
-        response: requests.Response = requests.post(
-            self.__base_url() + f'/answers/{answerid}/comments',
-            json={
-                'answerid': answerid,
-                'content': content
-            },
-            headers={
-                'Authorization': f'Bearer {token}',
-                self.__apikey_header: self.__apikey_secret
-            }
-        )
-        response_data.set_successful(response.ok)
-        if response_data.is_successful():
-            response_data.set_content(response.json())
-        else:
-            response_data.add_message(response.content.decode('ascii'))
-        return response_data
+
     def list_reports(self, token: Optional[str]) -> ResponseData:
         """ Requests a list of registered questions.
 

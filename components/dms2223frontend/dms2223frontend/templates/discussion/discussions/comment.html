@@ -4,16 +4,16 @@
 {% block discussioncontent %}
     <form action="/discussion/discussions/comment" method="post">
         <input type="hidden" name="redirect_to" value="{{ redirect_to }}" />
-        <input type="hidden" name="answerid" value="{{ discussion['id'] }}" />
+        <input type="hidden" name="discussionid" value="{{ discussion['id'] }}" />
+        <input type="hidden" name="answerid" value="{{ answers['id'] }}" />
         <dl>
             <h3><dt>{{ discussion['title'] }}</dt></h3>
             <p>{{ discussion['content'] }}</p>
 
             <h3><dt>Respuesta</dt></h3>
-            <dd>
-                <p>{{ discussion['content'] }}</p>
-                
-            </dd>
+            {{ answers }}
+            <textarea name="answerContent" rows="10" cols="100" readonly> {{ answers['content'] }} </textarea>
+            
 
             <h3><dt>Comentario</dt></h3>
             <dd>

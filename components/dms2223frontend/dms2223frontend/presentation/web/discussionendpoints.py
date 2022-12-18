@@ -114,7 +114,8 @@ class DiscussionEndpoints():
         id: int = int(str(request.args.get('discussionid')))
         
         return render_template('discussion/discussions/view.html', name=name, roles=session['roles'], redirect_to=redirect_to,
-            discussion=WebQuestion.get_discussion(backend_service, id),answers = WebAnswer.list_answers(backend_service,id))
+            discussion=WebQuestion.get_discussion(backend_service, id), answers = WebAnswer.list_answers(backend_service,id),
+            comments = WebComment.list_comments(backend_service, id))
 
     @staticmethod
     def post_discussion_discussions_view(auth_service: AuthService, backend_service: BackendService) -> Union[Response, Text]:
@@ -187,7 +188,6 @@ class DiscussionEndpoints():
 
         return redirect(redirect_to)
 
-
     @staticmethod
     def get_discussion_discussions_comment(auth_service: AuthService,  backend_service: BackendService) -> Union[Response, Text]:
         """ Handles the GET requests to the discussion root endpoint.
@@ -203,10 +203,11 @@ class DiscussionEndpoints():
         if Role.DISCUSSION.name not in session['roles']:
             return redirect(url_for('get_home'))
         name = session['user']
+        discussionid: int = int(str(request.args.get('discussionid')))
         answerid: int = int(str(request.args.get('answerid')))
         redirect_to = request.args.get('redirect_to', default='/discussion/discussions/view')
         return render_template('discussion/discussions/comment.html', name=name, roles=session['roles'],
-            redirect_to=redirect_to, discussion=WebQuestion.get_discussion(backend_service, answerid))
+            redirect_to=redirect_to, discussion=WebQuestion.get_discussion(backend_service, discussionid), answers = WebAnswer.get_answer(backend_service, answerid)[0])
 
     @staticmethod
     def post_discussion_discussions_comment(auth_service: AuthService, backend_service: BackendService) -> Union[Response, Text]:
@@ -221,6 +222,7 @@ class DiscussionEndpoints():
        
         if not WebAuth.test_token(auth_service):
             return redirect(url_for('get_login'))
+
         if Role.DISCUSSION.name not in session['roles']:
             return redirect(url_for('get_home'))
 
@@ -232,14 +234,13 @@ class DiscussionEndpoints():
         if not new_comment:
             answerid: int = int(str(request.form['answerid']))
             redirect_to = url_for('get_discussion_discussions_view', answerid=answerid)
-            return redirect(url_for('get_discussion_discussions_comment', answerid=answerid, redirect_to=redirect_to))
+            return redirect(url_for('get_discussion_discussions_comment',answerid=answerid, redirect_to=redirect_to))
         redirect_to = request.form['redirect_to']
         if not redirect_to:
             answerid = int(str(request.form['answerid']))
             redirect_to = url_for('get_discussion_discussions_view', answerid=answerid)
 
         return redirect(redirect_to)
-
     @staticmethod
     def get_discussion_discussions_report(auth_service: AuthService, backend_service: BackendService) -> Union[Response, Text]:
         """ Handles the GET requests to the discussion root endpoint.
@@ -257,11 +258,10 @@ class DiscussionEndpoints():
         name = session['user']
         title: str = str(request.args.get('discussiontitle'))
         redirect_to = request.args.get('redirect_to', default='/discussion/discussions/view')
-        id: int = int(str(request.args.get('discussionid')))
-        return render_template('discussion/discussions/report.html', name=name, roles=session['roles'], redirect_to=redirect_to, title=title,discussion=WebQuestion.get_discussion(backend_service,id))
+        return render_template('discussion/discussions/report.html', name=name, roles=session['roles'], redirect_to=redirect_to, title=title)
 
     @staticmethod
-    def post_discussion_discussions_report(auth_service: AuthService, backend_service: BackendService) -> Union[Response, Text]: # para redirigir una vez reportado
+    def post_discussion_discussions_report(auth_service: AuthService, backend_service: BackendService) -> Union[Response, Text]:
         """ Handles the POST requests to the discussion root endpoint.
 
         Args:
@@ -274,122 +274,9 @@ class DiscussionEndpoints():
             return redirect(url_for('get_login'))
         if Role.DISCUSSION.name not in session['roles']:
             return redirect(url_for('get_home'))
-        tipo = request.args.get("tiporeport")
-        id: int = int(str(request.args.get('discussionid')))
-        new_discussion = WebQuestion.create_report(backend_service,
-                                        tipo,
-                                        id,
-                                        request.form['content']
-                                        )
-                                    
-        if not new_discussion:
-            return redirect(url_for('get_discussion_discussions')) # CAMBIAR
-        redirect_to = request.form['redirect_to']
-        if not redirect_to:
-            redirect_to = url_for('get_discussion_discussions')
 
-        return redirect(redirect_to)
-
-#
-    def get_discussion_discussions_reportanswer(auth_service: AuthService, backend_service: BackendService) -> Union[Response, Text]:
-        """ Handles the GET requests to the discussion root endpoint.
-
-        Args:
-            - auth_service (AuthService): The authentication service.
-
-        Returns:
-            - Union[Response,Text]: The generated response to the request.
-        """
-        if not WebAuth.test_token(auth_service):
-            return redirect(url_for('get_login'))
-        if Role.DISCUSSION.name not in session['roles']:
-            return redirect(url_for('get_home'))
-        name = session['user']
-        title: str = str(request.args.get('discussiontitle'))
-        id =  int = int(str(request.args.get('answerid')))
-        redirect_to = request.args.get('redirect_to', default='/discussion/discussions/view')
-        return render_template('discussion/discussions/reportanswer.html', name=name, roles=session['roles'], redirect_to=redirect_to, title=title
-        ,answer = WebAnswer.list_answers(backend_service,id))
-
-    @staticmethod
-    def post_discussion_discussions_reportanswer(auth_service: AuthService, backend_service: BackendService) -> Union[Response, Text]: # para redirigir una vez reportado
-        """ Handles the POST requests to the discussion root endpoint.
-
-        Args:
-            - auth_service (AuthService): The authentication service.
-
-        Returns:
-            - Union[Response,Text]: The generated response to the request.
-        """
-        if not WebAuth.test_token(auth_service):
-            return redirect(url_for('get_login'))
-        if Role.DISCUSSION.name not in session['roles']:
-            return redirect(url_for('get_home'))
-        tipo = request.args.get("tiporeport")
-        id: int = int(str(request.args.get('discussionid')))
-        new_discussion = WebQuestion.create_report(backend_service,
-                                        tipo,
-                                        id,
-                                        request.form['content']
-                                        )
-                                    
-        if not new_discussion:
-            return redirect(url_for('get_discussion_discussions')) # CAMBIAR
-        redirect_to = request.form['redirect_to']
-        if not redirect_to:
-            redirect_to = url_for('get_discussion_discussions')
-
+        redirect_to = request.args.get('redirect_to', default='/discussion/discussions')
         return redirect(redirect_to)
 
 
-    def get_discussion_discussions_reportcomment(auth_service: AuthService, backend_service: BackendService) -> Union[Response, Text]:
-        """ Handles the GET requests to the discussion root endpoint.
-
-        Args:
-            - auth_service (AuthService): The authentication service.
-
-        Returns:
-            - Union[Response,Text]: The generated response to the request.
-        """
-        if not WebAuth.test_token(auth_service):
-            return redirect(url_for('get_login'))
-        if Role.DISCUSSION.name not in session['roles']:
-            return redirect(url_for('get_home'))
-        name = session['user']
-        title: str = str(request.args.get('discussiontitle'))
-        redirect_to = request.args.get('redirect_to', default='/discussion/discussions/view')
-        return render_template('discussion/discussions/reportcomment.html', name=name, roles=session['roles'], redirect_to=redirect_to, title=title)
-
-    @staticmethod
-    def post_discussion_discussions_reportcomment(auth_service: AuthService, backend_service: BackendService) -> Union[Response, Text]: # para redirigir una vez reportado
-        """ Handles the POST requests to the discussion root endpoint.
-
-        Args:
-            - auth_service (AuthService): The authentication service.
-
-        Returns:
-            - Union[Response,Text]: The generated response to the request.
-        """
-        if not WebAuth.test_token(auth_service):
-            return redirect(url_for('get_login'))
-        if Role.DISCUSSION.name not in session['roles']:
-            return redirect(url_for('get_home'))
-        tipo = request.args.get("tiporeport")
-        id: int = int(str(request.args.get('discussionid')))
-        new_discussion = WebQuestion.create_report(backend_service,
-                                        tipo,
-                                        id,
-                                        request.form['content']
-                                        )    
-        if not new_discussion:
-            return redirect(url_for('get_discussion_discussions')) # CAMBIAR
-        redirect_to = request.form['redirect_to']
-        if not redirect_to:
-            redirect_to = url_for('get_discussion_discussions')
-        return redirect(redirect_to)
-
-
-
-#
-    
     

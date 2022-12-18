@@ -43,3 +43,9 @@ class WebAnswer():
         response: ResponseData = backend_service.create_answer(session.get('token'), discussionid, content)
         WebUtils.flash_response_messages(response)
         return response.get_content()
+
+    @staticmethod
+    def get_answer(backend_service: BackendService, answerid: int) -> Optional[Dict]:
+        response: ResponseData = backend_service.get_answer(session.get('token'), answerid)
+        WebUtils.flash_response_messages(response)
+        return response.get_content()
