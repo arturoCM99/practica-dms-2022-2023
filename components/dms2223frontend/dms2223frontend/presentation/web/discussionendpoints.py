@@ -206,8 +206,8 @@ class DiscussionEndpoints():
         discussionid: int = int(str(request.args.get('discussionid')))
         answerid: int = int(str(request.args.get('answerid')))
         redirect_to = request.args.get('redirect_to', default='/discussion/discussions/view')
-        return render_template('discussion/discussions/comment.html', name=name, roles=session['roles'],
-            redirect_to=redirect_to, discussion=WebQuestion.get_discussion(backend_service, discussionid), answers = WebAnswer.get_answer(backend_service, answerid)[0])
+        return render_template('discussion/discussions/comment.html', name=name, roles=session['roles'], answerid=answerid,
+            redirect_to=redirect_to, discussion=WebQuestion.get_discussion(backend_service, discussionid), answers = WebAnswer.list_answers(backend_service, discussionid))
 
     @staticmethod
     def post_discussion_discussions_comment(auth_service: AuthService, backend_service: BackendService) -> Union[Response, Text]:
@@ -228,7 +228,10 @@ class DiscussionEndpoints():
 
         new_comment = WebComment.create_comment(backend_service,
                                         int(request.form['answerid']),
+                                        #int(str(request.form['answerid']))
                                         request.form['content']
+                                        #int(str(request.args.get('answerid')))
+                                        
                                         )
                                     
         if not new_comment:

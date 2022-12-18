@@ -86,7 +86,7 @@ class Answers():
         return query.all()
 
     @staticmethod
-    def get_answer(session: Session, discussionid: int) -> Answer:
+    def get_answer(session: Session, answerid: int) -> Answer:
         """Return a answer of a certain question and user.
 
         Args:
@@ -100,9 +100,13 @@ class Answers():
         Returns:
             - Answer: Answer of the question.
         """
-        if not discussionid:
-            raise ValueError('All fields are required.')
-        query = session.query(Answer).filter_by(
-            discussionid=discussionid
-        )
-        return query.all()
+
+
+        if not answerid:
+            raise ValueError('An id is requiered.')
+        try:
+            query = session.query(Answer).filter_by(answerid=answerid)
+            answer: Answer = query.one()
+        except NoResultFound:
+            return None
+        return answer
