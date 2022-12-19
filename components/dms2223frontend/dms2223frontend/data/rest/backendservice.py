@@ -63,7 +63,7 @@ class BackendService():
             response_data.set_content([])
         return response_data
 
-    def create_report(self, token: Optional[str],iddiscussion :int,tiporeport: int, content: str) -> ResponseData:
+    def create_report(self, token: Optional[str],id :int,type: int, reason: str) -> ResponseData:
         """ Requests a discussion creation.
 
         Args:
@@ -79,9 +79,9 @@ class BackendService():
         response: requests.Response = requests.post(
             self.__base_url() + '/discussions/{qid}/reports',
             json={
-                'id': iddiscussion,
-                'reason': content,
-                'tiporeport': tiporeport
+                'id': id,
+                'reason': reason,
+                'type': type
             },
             headers={
                 'Authorization': f'Bearer {token}',
@@ -91,8 +91,7 @@ class BackendService():
         response_data.set_successful(response.ok)
         if response_data.is_successful():
             response_data.set_content(response.json())
-        else:
-            response_data.add_message(response.content.decode('ascii'))
+        
         return response_data
     
     def create_discussion(self, token: Optional[str], title: str, content: str) -> ResponseData:
@@ -329,3 +328,71 @@ class BackendService():
         return response_data
 
     
+    def list_reports_answer(self, token: Optional[str]) -> ResponseData:
+        """ Requests a list of registered questions.
+
+        Args:
+            token (Optional[str]): The question session token.
+
+        Returns:
+            - ResponseData: If successful, the contents hold a list of user data dictionaries.
+              Otherwise, the contents will be an empty list.
+        """
+        response_data: ResponseData = ResponseData()
+        response: requests.Response = requests.get(
+            self.__base_url() + f'/answers/reports',
+            headers={
+                'Authorization': f'Bearer {token}',
+                self.__apikey_header: self.__apikey_secret
+            }
+        )
+        response_data.set_successful(response.ok)
+        if response_data.is_successful():
+            response_data.set_content(response.json())
+        else:
+            response_data.add_message(response.content.decode('ascii'))
+            response_data.set_content([])
+        return response_data
+
+    def list_reports_comments(self, token: Optional[str]) -> ResponseData:
+        """ Requests a list of registered questions.
+
+        Args:
+            token (Optional[str]): The question session token.
+
+        Returns:
+            - ResponseData: If successful, the contents hold a list of user data dictionaries.
+              Otherwise, the contents will be an empty list.
+        """
+        response_data: ResponseData = ResponseData()
+        response: requests.Response = requests.get(
+            self.__base_url() + f'/comments/reports',
+            headers={
+                'Authorization': f'Bearer {token}',
+                self.__apikey_header: self.__apikey_secret
+            }
+        )
+        response_data.set_successful(response.ok)
+        if response_data.is_successful():
+            response_data.set_content(response.json())
+        else:
+            response_data.add_message(response.content.decode('ascii'))
+            response_data.set_content([])
+        return response_data
+
+    def get_report(self, token:  Optional[str], id: int) -> ResponseData:
+            response_data: ResponseData = ResponseData()
+            response: requests.Response = requests.get(
+                self.__base_url() + f'/answers/{id}/comments',
+                headers={
+                    'Authorization': f'Bearer {token}',
+                    self.__apikey_header: self.__apikey_secret
+                }
+            )
+            response_data.set_successful(response.ok)
+            if response_data.is_successful():
+                response_data.set_content(response.json())
+            else:
+                response_data.add_message(response.content.decode('ascii'))
+                response_data.set_content([])
+            return response_data

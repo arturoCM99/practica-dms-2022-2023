@@ -5,14 +5,6 @@
 {% block moderatorcontent %}
     <table class="fillwidth highlightrows">
         <tbody>
-
-
-            {% for report in reports %}
-            <tr class="highlightable">
-                <td class="alignleft">{{ button('grayBg', '/moderator/moderator/view?reporttipo=' + report['tipo']|string + '&redirect_to=/moderator/moderator', report['content']) }}</td> 
-            </tr>
-            {% endfor %}
-
             <tr>
                 <th class="alignleft">Reportes de discusiones</th><th></th>
             </tr>
@@ -21,7 +13,10 @@
             {% for report in reports %}
                 {% if report ['tipo'] == 1 %}
                 <tr class="highlightable">
-                    <td class="alignleft">{{ button('grayBg', '/moderator/moderator/view?reporttipo=' + report['tipo']|string + '&redirect_to=/moderator/moderator', report['content']) }}</td> 
+                    <td>{{ report }}</td>
+                    <td class="alignleft">{{ button('grayBg', '/moderator/moderator/view?reportid=' + report['id']|string + '&redirect_to=/moderator/moderator', report['content']) }}</td> 
+                    <td>{{submit_button('bluebg','Aceptar')}}
+                    {{submit_button('redbg','Rechazar')}}</td>
                 </tr>
                 {%endif%}
             {% endfor %}
@@ -29,25 +24,33 @@
             <tr>
                 <th class="alignleft">Reportes de respuesta</th><th></th>
             </tr>
-            {% for report in reports %}
-                {% if report ['tipo'] == 2 %}
-                <tr class="highlightable">
-                    <td class="alignleft">{{ button('grayBg', '/moderator/moderator/view?reporttipo=' + report['tipo']|string + '&redirect_to=/moderator/moderator', report['content']) }}</td> 
-                </tr>
-                {%endif%}
-            {% endfor %}
+            {% for reportanswer in reportsanswer %}
+            <tr class="highlightable">
+                <td>{{ reportanswer }}</td>
+                {{reportanswer}}
+                <td class="alignleft">{{ button('grayBg', '/moderator/moderator/view?reportanswerid=' + reportanswer['id']|string + '&redirect_to=/moderator/moderator', reportanswer['content']) }}</td> 
+                <td>{{submit_button('bluebg','Aceptar')}}
+                    {{submit_button('redbg','Rechazar')}}</td>
+            </tr>
+      
+            {% endfor %} 
 
             <tr>
                 <th class="alignleft">Reportes de comentarios</th><th></th>
             </tr>
-            {% for report in reports %}
-                {% if report ['tipo'] == 3 %}
-                <tr class="highlightable">
-                    <td class="alignleft">{{ button('grayBg', '/moderator/moderator/view?reporttipo=' + report['tipo']|string + '&redirect_to=/moderator/moderator', report['content']) }}</td> 
-                </tr>
-                {%endif%}
-            {% endfor %}
+            {% for reportcomment in reportscomment %}
+            <tr class="highlightable">
+                <td>{{ reportcomment }}</td>
+                <td class="alignleft">{{ button('grayBg', '/moderator/moderator/view?reportcommentrid=' + reportcomment['id']|string + '&redirect_to=/moderator/moderator', reportcomment['content']) }}</td> 
+                <td>{{submit_button('bluebg','Aceptar')}}
+                    {{submit_button('redbg','Rechazar')}}</td>
+            </tr>
+      
+            {% endfor %} 
 
+
+            
+            
 
         </tbody>
     </table>

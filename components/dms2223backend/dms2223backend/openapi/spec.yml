@@ -723,62 +723,62 @@ paths:
   #     security:
   #       - user_token: []
   #         api_key: []
-  # /answers/reports:
-  #   get:
-  #     summary: Get a list of answer reports.
-  #     description: |
-  #       This operation gets a listing of answer reports.
+  /answers/reports:
+    get:
+      summary: Get a list of answer reports.
+      description: |
+        This operation gets a listing of answer reports.
 
-  #       Several parameters can be used to filter out the reports according to
-  #       their status.
-  #     # operationId: TODO: Set to the fully-qualified name of the function handling the operation
-  #     parameters:
-  #       - name: pending
-  #         description: |
-  #           Set to `false` to exclude the pending reports from the listing.
-  #         in: query
-  #         required: false
-  #         schema:
-  #           type: boolean
-  #           default: true
-  #       - name: accepted
-  #         description: |
-  #           Set to `false` to exclude the accepted reports from the listing.
-  #         in: query
-  #         required: false
-  #         schema:
-  #           type: boolean
-  #           default: true
-  #       - name: rejected
-  #         description: |
-  #           Set to `false` to exclude the rejected reports from the listing.
-  #         in: query
-  #         required: false
-  #         schema:
-  #           type: boolean
-  #           default: true
-  #     responses:
-  #       '200':
-  #         description: Listing of answer reports
-  #         content:
-  #           'application/json':
-  #             schema:
-  #               $ref: '#/components/schemas/AnswerReportsListModel'
-  #             example:
-  #               - id: 1
-  #                 aid: 7
-  #                 reason: Unrelated to the question
-  #                 status: ACCEPTED
-  #                 owner:
-  #                   username: user4
-  #                 timestamp: 1665922785
-  #     tags:
-  #       - moderation
-  #       - answers
-  #       - reports
-  #     security:
-  #       - user_token: []
-  #         api_key: []
+        Several parameters can be used to filter out the reports according to
+        their status.
+      operationId: dms2223backend.presentation.rest.moderate.list_reports_answer
+      parameters:
+        - name: pending
+          description: |
+            Set to `false` to exclude the pending reports from the listing.
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: true
+        - name: accepted
+          description: |
+            Set to `false` to exclude the accepted reports from the listing.
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: true
+        - name: rejected
+          description: |
+            Set to `false` to exclude the rejected reports from the listing.
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: true
+      responses:
+        '200':
+          description: Listing of answer reports
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/AnswerReportsListModel'
+              example:
+                - id: 1
+                  aid: 7
+                  reason: Unrelated to the question
+                  status: ACCEPTED
+                  owner:
+                    username: user4
+                  timestamp: 1665922785
+      tags:
+        - moderation
+        - answers
+        - reports
+      security:
+        - user_token: []
+          api_key: []
   # /answers/reports/{arid}:
   #   put:
   #     summary: Change the status of an answer report
@@ -892,62 +892,62 @@ paths:
   #     security:
   #       - user_token: []
   #         api_key: []
-  # /comments/reports:
-  #   get:
-  #     summary: Get a list of comment reports.
-  #     description: |
-  #       This operation gets a listing of comment reports.
+  /comments/reports:
+    get:
+      summary: Get a list of comment reports.
+      description: |
+        This operation gets a listing of comment reports.
 
-  #       Several parameters can be used to filter out the reports according to
-  #       their status.
-  #     # operationId: TODO: Set to the fully-qualified name of the function handling the operation
-  #     parameters:
-  #       - name: pending
-  #         description: |
-  #           Set to `false` to exclude the pending reports from the listing.
-  #         in: query
-  #         required: false
-  #         schema:
-  #           type: boolean
-  #           default: true
-  #       - name: accepted
-  #         description: |
-  #           Set to `false` to exclude the accepted reports from the listing.
-  #         in: query
-  #         required: false
-  #         schema:
-  #           type: boolean
-  #           default: true
-  #       - name: rejected
-  #         description: |
-  #           Set to `false` to exclude the rejected reports from the listing.
-  #         in: query
-  #         required: false
-  #         schema:
-  #           type: boolean
-  #           default: true
-  #     responses:
-  #       '200':
-  #         description: Listing of comment reports
-  #         content:
-  #           'application/json':
-  #             schema:
-  #               $ref: '#/components/schemas/CommentReportsListModel'
-  #             example:
-  #               - id: 1
-  #                 cid: 7
-  #                 reason: Ambiguous sentiment
-  #                 status: ACCEPTED
-  #                 owner:
-  #                   username: user4
-  #                 timestamp: 1665922785
-  #     tags:
-  #       - moderation
-  #       - comments
-  #       - reports
-  #     security:
-  #       - user_token: []
-  #         api_key: []
+        Several parameters can be used to filter out the reports according to
+        their status.
+      operationId: dms2223backend.presentation.rest.moderate.list_reports_comments
+      parameters:
+        - name: pending
+          description: |
+            Set to `false` to exclude the pending reports from the listing.
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: true
+        - name: accepted
+          description: |
+            Set to `false` to exclude the accepted reports from the listing.
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: true
+        - name: rejected
+          description: |
+            Set to `false` to exclude the rejected reports from the listing.
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: true
+      responses:
+        '200':
+          description: Listing of comment reports
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/CommentReportsListModel'
+              example:
+                - id: 1
+                  cid: 7
+                  reason: Ambiguous sentiment
+                  status: ACCEPTED
+                  owner:
+                    username: user4
+                  timestamp: 1665922785
+      tags:
+        - moderation
+        - comments
+        - reports
+      security:
+        - user_token: []
+          api_key: []
   # /comments/reports/{crid}:
     # put:
     #   summary: Change the status of a comment report

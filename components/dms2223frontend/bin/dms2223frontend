@@ -80,7 +80,7 @@ def post_discussion_discussions_report():
 def post_discussion_discussions_reportanswer():
     return DiscussionEndpoints.post_discussion_discussions_reportanswer(auth_service, backend_service)
 
-@app.route("/discussion/discussions/reportanswer", methods=['POST'])
+@app.route("/discussion/discussions/reportanswer", methods=['GET'])
 def get_discussion_discussions_reportanswer():
     return DiscussionEndpoints.get_discussion_discussions_reportanswer(auth_service, backend_service)
 

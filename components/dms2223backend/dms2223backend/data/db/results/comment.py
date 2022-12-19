@@ -1,8 +1,10 @@
 """Comment Class Module
 """
-
+from typing import Dict
 from sqlalchemy import Table, MetaData, Column, String , Integer, ForeignKey # type: ignore
+from sqlalchemy.orm import relationship  # type: ignore
 from dms2223backend.data.db.results.resultbase import ResultBase
+from dms2223backend.data.db.results.reportcomment import Reportcomment
 
 class Comment(ResultBase):
     """ Definition and storage of comment ORM records.
@@ -41,3 +43,14 @@ class Comment(ResultBase):
             Column('answerid', Integer, ForeignKey('answers.id'), nullable=False),
             Column('content', String(250), nullable=False)
         )
+
+    @staticmethod
+    def _mapping_properties() -> Dict:
+        """ Gets the mapping properties dictionary.
+
+        Returns:
+            - Dict: A dictionary with the mapping properties.
+        """
+        return {
+            'reportcomment': relationship(Reportcomment,backref='comment')
+        }

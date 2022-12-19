@@ -55,6 +55,31 @@ class ReportLogic():
         return Reports.list_all(session)
 
     @staticmethod
+    def list_all_report_answer(session: Session) -> List[List]:
+        """Lists every report.
+
+        Args:
+            - session (Session): The session object.
+
+        Returns:
+            - List[Report]: A list of `Report` registers.
+        """
+
+        return Reports.list_all_report_answer(session)
+
+    def list_all_report_comments(session: Session) -> List[List]:
+        """Lists every report.
+
+        Args:
+            - session (Session): The session object.
+
+        Returns:
+            - List[Report]: A list of `Report` registers.
+        """
+
+        return Reports.list_all_report_comments(session)
+
+    @staticmethod
     def get_report_by_id(session: Session, id: int,) -> Optional[Report]:
         """Obtains a rerport by an id.
         Args:

@@ -39,7 +39,7 @@ class reportsServices():
         return out
 
     @staticmethod
-    def list_reports(schema: Schema) -> List[Dict]: # pasar por parametro discussionid: int 
+    def list_reports(schema: Schema) -> List[Dict]: 
         """Lists the existing reports.
 
         Args:
@@ -62,6 +62,51 @@ class reportsServices():
         return out
 
     @staticmethod
+    def list_reports_answer(schema: Schema) -> List[Dict]: 
+        """Lists the existing reports.
+
+        Args:
+            - schema (Schema): A database handler where the reports are mapped into.
+
+        Returns:
+            - List[Dict]: A list of dictionaries with the reports' data.
+        """
+        out: List[Dict] = []
+        session: Session = schema.new_session()
+        reports: List[List] = ReportLogic.list_all_report_answer(session)
+        for report in reports:
+            out.append({
+                'id': report.id,
+                'tipo': report.tipo,
+                'answerid': report.answerid,
+                'content': report.content,
+            })
+        schema.remove_session()
+        return out
+
+    def list_reports_comments(schema: Schema) -> List[Dict]: 
+        """Lists the existing reports.
+
+        Args:
+            - schema (Schema): A database handler where the reports are mapped into.
+
+        Returns:
+            - List[Dict]: A list of dictionaries with the reports' data.
+        """
+        out: List[Dict] = []
+        session: Session = schema.new_session()
+        reports: List[List] = ReportLogic.list_all_report_comments(session)
+        for report in reports:
+            out.append({
+                'id': report.id,
+                'tipo': report.tipo,
+                'commentid': report.commentid,
+                'content': report.content,
+            })
+        schema.remove_session()
+        return out
+
+    @staticmethod
     def create_report(tiporeport:int,title:str, content: str, schema: Schema) -> Dict:
         """Creates a report.
 
@@ -77,10 +122,10 @@ class reportsServices():
         out: Dict = {}
         try:
             new_report: Report = ReportLogic.create(tiporeport,session, title, content)
-            out['tiporeport'] = new_report.tipo
             out['id'] = new_report.id#type: ignore
-            out['title'] = new_report.title#type: ignore
             out['content'] = new_report.content
+            out['tipo'] = new_report.tipo
+            out['discussionid'] = new_report.discussionid#type: ignore
 
         except Exception as ex:
             raise ex

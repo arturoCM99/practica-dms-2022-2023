@@ -7,8 +7,9 @@ from sqlalchemy.exc import IntegrityError  # type: ignore
 from sqlalchemy.orm.session import Session  # type: ignore
 from sqlalchemy.orm.exc import NoResultFound  # type: ignore
 from dms2223backend.data.db.results import Report
+from dms2223backend.data.db.results import Reportanswer
 from dms2223backend.data.db.exc import ReportExistsError
-
+from dms2223backend.data.db.results import Reportcomment
 
 class Reports():
     """ Class responsible of table-level reports operations.
@@ -45,6 +46,68 @@ class Reports():
                 ) from ex
 
     @staticmethod
+    def create_answer_report(session: Session, tiporeporte: int,answerid: int,content: str) -> Report:
+        """ Creates a new report record.
+
+        Note:
+            Any existing transaction will be committed.
+
+        Args:
+            - session (Session): The session object.
+            - title (str): The title of the report string.
+            - content (str): The content of the report string.
+
+        Raises:
+            - ValueError: If either the username or the password_hash is empty.
+            - UserExistsError: If a user with the same username already exists.
+
+        Returns:
+            - User: The created `report` result.
+        """
+        if not tiporeporte or not content:
+            raise ValueError('A type report and a content hash are required.')
+        try:
+            new_report = Reportanswer(tiporeporte,answerid,content)
+            session.add(new_report)
+            session.commit()
+            return new_report
+        except IntegrityError as ex:
+            raise ReportExistsError(
+                'A report with name already exists.'
+                ) from ex
+
+    @staticmethod
+    def create_comment_report(session: Session, tiporeporte: int,commentid: int,content: str) -> Report:
+        """ Creates a new report record.
+
+        Note:
+            Any existing transaction will be committed.
+
+        Args:
+            - session (Session): The session object.
+            - title (str): The title of the report string.
+            - content (str): The content of the report string.
+
+        Raises:
+            - ValueError: If either the username or the password_hash is empty.
+            - UserExistsError: If a user with the same username already exists.
+
+        Returns:
+            - User: The created `report` result.
+        """
+        if not tiporeporte or not content:
+            raise ValueError('A type report and a content hash are required.')
+        try:
+            new_report = Reportcomment(tiporeporte,commentid,content)
+            session.add(new_report)
+            session.commit()
+            return new_report
+        except IntegrityError as ex:
+            raise ReportExistsError(
+                'A report with name already exists.'
+                ) from ex
+
+    @staticmethod
     def list_all(session: Session) -> List[Report]:
         """Lists every report.
 
@@ -55,6 +118,32 @@ class Reports():
             - List[report]: A list of `report` registers.
         """
         query = session.query(Report)
+        return query.all()
+
+    @staticmethod
+    def list_all_report_answer(session: Session) -> List[Report]:
+        """Lists every report.
+
+        Args:
+            - session (Session): The session object.
+
+        Returns:
+            - List[report]: A list of `report` registers.
+        """
+        query = session.query(Reportanswer)
+        return query.all()
+
+    @staticmethod
+    def list_all_report_comments(session: Session) -> List[Report]:
+        """Lists every report.
+
+        Args:
+            - session (Session): The session object.
+
+        Returns:
+            - List[report]: A list of `report` registers.
+        """
+        query = session.query(Reportcomment)
         return query.all()
 
     @staticmethod

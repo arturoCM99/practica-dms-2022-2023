@@ -46,16 +46,14 @@ class ModeratorEndpoints():
         if Role.MODERATION.name not in session['roles']:
             return redirect(url_for('get_home'))
         name = session['user']
-
-        # #Reportes de prueba hasta backend
-        # reports=[{"title" : "Primer reporte", "content" : "Contenido del primer reporte"}, 
-        # {"title" : "Segundo reporte", "content" : "Contenido del segundo reporte"},
-        # {"title" : "Tercer reporte", "content" : "Contenido del tercer reporte"}]
-
-        return render_template('moderator/reports.html', name=name, roles=session['roles'], reports=WebQuestion.list_reports(backend_service))
+        
+        return render_template('moderator/reports.html', name=name, roles=session['roles'], reports=WebQuestion.list_reports(backend_service),
+                                                                                            reportsanswer = WebQuestion.list_reports_answer(backend_service,),
+                                                                                            reportscomment = WebQuestion.list_reports_comments(backend_service)
+                                                                                            )
 
     @staticmethod
-    def get_report_view(auth_service: AuthService) -> Union[Response, Text]:
+    def get_report_view(auth_service: AuthService,backend_service: BackendService) -> Union[Response, Text]:
         """ Handles the GET requests to the report root endpoint.
 
         Args:
@@ -69,9 +67,9 @@ class ModeratorEndpoints():
         if Role.MODERATION.name not in session['roles']:
             return redirect(url_for('get_home'))
         name = session['user']
-        title: str = str(request.args.get('reporttitle'))
+        id: int = int(str(request.args.get('reportid')))
         redirect_to = request.args.get('redirect_to', default='/moderator/reports')
-        return render_template('moderator/moderator/view.html', name=name, roles=session['roles'], redirect_to=redirect_to, title=title,)
+        return render_template('moderator/moderator/view.html', name=name, roles=session['roles'], redirect_to=redirect_to,report = WebQuestion.get_report(backend_service,id))
 
     @staticmethod
     def get_moderator_discussions(auth_service: AuthService, backend_services: BackendService) -> Union[Response, Text]:

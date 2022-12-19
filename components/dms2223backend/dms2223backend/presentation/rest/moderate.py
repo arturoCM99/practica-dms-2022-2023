@@ -18,6 +18,27 @@ def list_reports() -> Tuple[List[Dict], Optional[int]]:
         reports: List[Dict] = reportsServices.list_reports(current_app.db)
     return (reports, HTTPStatus.OK.value)
 
+def list_reports_answer() -> Tuple[List[Dict], Optional[int]]:
+    """Lists the existing reports.
+
+    Returns:
+        - Tuple[List[Dict], Optional[int]]: A tuple with a list of dictionaries for the reports' data
+          and a code 200 OK.
+    """
+    with current_app.app_context():
+        reports: List[Dict] = reportsServices.list_reports_answer(current_app.db)
+    return (reports, HTTPStatus.OK.value)
+
+def list_reports_comments() -> Tuple[List[Dict], Optional[int]]:
+    """Lists the existing reports.
+
+    Returns:
+        - Tuple[List[Dict], Optional[int]]: A tuple with a list of dictionaries for the reports' data
+          and a code 200 OK.
+    """
+    with current_app.app_context():
+        reports: List[Dict] = reportsServices.list_reports_comments(current_app.db)
+    return (reports, HTTPStatus.OK.value)
 
 def create_report(body: Dict) -> Tuple[Union[Dict, str], Optional[int]]:
     """Creates a report if the requestor has the report role.
@@ -35,9 +56,9 @@ def create_report(body: Dict) -> Tuple[Union[Dict, str], Optional[int]]:
     """
     with current_app.app_context():
         try:
-            title = "algo"
+            
             report: Dict = reportsServices.create_report(
-                body['tiporeport'],title,body['content'],current_app.db
+                body['tiporeport'],body['title'],body['content'],current_app.db
             )
         except ValueError:
             return ('A mandatory argument is missing', HTTPStatus.BAD_REQUEST.value)

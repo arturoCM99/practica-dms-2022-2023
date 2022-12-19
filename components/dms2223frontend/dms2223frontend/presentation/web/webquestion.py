@@ -28,7 +28,7 @@ class WebQuestion():
         return []
 
     @staticmethod
-    def create_report(backend_service: BackendService,iddiscussion: int,tiporeport :int,content: str) -> Optional[Dict]:
+    def create_report(backend_service: BackendService,tiporeport :int,id: int,content: str) -> Optional[Dict]:
         """ Creates a discussion in the backend service.
 
         Args:
@@ -40,7 +40,7 @@ class WebQuestion():
             - Dict: A dictionary with the newly created user if successful.
             - None: Nothing on error.
         """
-        response: ResponseData = backend_service.create_report(session.get('token'),iddiscussion,tiporeport,  content)
+        response: ResponseData = backend_service.create_report(session.get('token'),id,tiporeport,  content)
         WebUtils.flash_response_messages(response)
         return response.get_content()
 
@@ -78,6 +78,44 @@ class WebQuestion():
             - List: A list of user data dictionaries (the list may be empty)
         """
         response: ResponseData = backend_service.list_reports(session.get('token'))
+        WebUtils.flash_response_messages(response)
+        if response.get_content() is not None and isinstance(response.get_content(), list):
+            return list(response.get_content())
+        return []
+
+    @staticmethod
+    def get_report(backend_service: BackendService, id: int) -> Optional[Dict]:
+        response: ResponseData = backend_service.get_report(session.get('token'), id)
+        WebUtils.flash_response_messages(response)
+        return response.get_content()
+
+    @staticmethod
+    def list_reports_answer(backend_service:BackendService) -> List:
+        """ Gets the list of discussions from the backend service.
+
+        Args:
+            - backend_service (BackendService): The backend service.
+
+        Returns:
+            - List: A list of user data dictionaries (the list may be empty)
+        """
+        response: ResponseData = backend_service.list_reports_answer(session.get('token'))
+        WebUtils.flash_response_messages(response)
+        if response.get_content() is not None and isinstance(response.get_content(), list):
+            return list(response.get_content())
+        return []
+
+    @staticmethod
+    def list_reports_comments(backend_service:BackendService) -> List:
+        """ Gets the list of discussions from the backend service.
+
+        Args:
+            - backend_service (BackendService): The backend service.
+
+        Returns:
+            - List: A list of user data dictionaries (the list may be empty)
+        """
+        response: ResponseData = backend_service.list_reports_comments(session.get('token'))
         WebUtils.flash_response_messages(response)
         if response.get_content() is not None and isinstance(response.get_content(), list):
             return list(response.get_content())

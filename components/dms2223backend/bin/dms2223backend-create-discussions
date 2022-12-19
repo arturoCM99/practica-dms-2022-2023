@@ -3,7 +3,7 @@
 from dms2223common.data import Role
 from sqlalchemy.orm.session import Session
 from dms2223backend.data.config import BackendConfiguration
-from dms2223backend.data.db.resultsets import Discussions, Answers, Comments, Reports
+from dms2223backend.data.db.resultsets import Discussions, Answers, Comments, Reports 
 from dms2223backend.data.db import Schema
 
 
@@ -26,6 +26,7 @@ Comments.comment(session, 2, "Comentario 1 a respuesta 2")
 
 
 Reports.create(session,1,1, "Este es un reporte a un titulo")
-Reports.create(session,2,1, "Este es un reporte a una respuesta")
+Reports.create_answer_report(session,3,1, "Este es un reporte a una respuestaaa ")
 Reports.create(session,3,1, "Este es un reporte a un comentario")
+Reports.create_comment_report(session,1,1,"reporte a comentario 1")
 db.remove_session()
