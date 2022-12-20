@@ -253,3 +253,33 @@ The directory `scripts` contain several helper scripts.
 
 This project includes some workflows configured in `.github/workflows`. They will generate the badges seen at the top of this document, so do not forget to update the URLs in this README file if the project is forked!
 
+## Línea futura
+
+Podemos llegar a pensar en numerosas mejoras futuras para nuestra aplicación como pueden ser:
+En el que el moderador pueda dar toques de atención a los usuarios llegando asi a bloquearlos si estos son reicidentes (dejando de tener acceso a nuestra aplicación) 
+Posible mejora en cuanto a la funcionalidad de los usuarios, estos pudiendo editar su propio perfil asi modificando datos personales o bien que estos tengan acceso a un registro propio de elementos interactuados con la aplicación.
+Destacar una nueva sección de discusiones en tendencia, en la que destacaremos las discusiones las cuales han tenido una interaccion mayor en un mismo dia.
+ 
+Tras un estudio de la posible mejor linea futura que puede tomar nuestra aplicación nos hemos decantado en mejorar la interaccion de esta mediante la seccion de "tendencias" las cuales para pertenecer a esta han de tener un mayor numero de actividades, dependiendo asi de factores como pueden ser:
+- mayor número de respuestas.
+- mayor número de comentarios.
+- mayor número de votos por dia.
+	
+Los pasos que hemos de tomar para poder llevar a cabo esta linea futura son:
+- Un nuevo apartado en el home que permita el rapido acceso y visualizacion de la seccion al usuario
+- El apartado realizado para tener acceso a las discusiones en tendencia que tenga un diseño que anime al usuario a interactuar con esta nueva seccion 
+
+![Caputra.png](imagenes/Captura.png)
+
+- Una vez dentro del apartado de tendencias podremos visualizarlas los titulos de las discusiones en orden de mayor actividad.
+
+- Estableceremos 2 filtros sobre las discusiones en tendencias:
+    - 1º Nos permitirá visualizarlas según la franja de tiempo (mese, semana, dia) 
+    - 2º Nos permitirá visualizarlas según la localización (país y región)
+- Podremos visualizar a primera vista el numero de interacciones actuales de la discusion además de las etiquetas relacionadas con ese tema
+
+![Caputra.png](imagenes/Captura2.png)
+
+- Una vez dentro de cada discusion en tendencia resaltaremos al lado del titulo que se encuentra en tendencia y su posicion concretamente
+
+![Caputra.png](imagenes/Captura3.png)
